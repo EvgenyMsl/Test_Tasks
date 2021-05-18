@@ -9,7 +9,7 @@ namespace arr_task4
             task_4();
         }
 
-        static void task_4()
+        static void task_4()  
         {
 
             int N = 3;
