@@ -3,7 +3,7 @@ using System.IO;
 
 namespace arr_task6 
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {
