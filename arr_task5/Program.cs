@@ -84,69 +84,74 @@ namespace arr_task5
                 dirInfo.Create();
             }
 
-            FileStream fstream = File.OpenRead($"{path}note.txt");
-            byte[] array = new byte[fstream.Length];
-            fstream.Read(array, 0, array.Length);
-            string textFromFile = System.Text.Encoding.Default.GetString(array);
-
-            Console.WriteLine(textFromFile);
-
-            System.Console.WriteLine(textFromFile.Length);
-            string[] temp_text = new string[textFromFile.Length / 2];//мне самому это не нравится. избыточно
-
-            int k = 0;
-            for (int i = 0; i < textFromFile.Length - 1; i++)
+            if (File.Exists($"{path}note.txt"))
             {
-                temp_text[k] += textFromFile[i];
-                if (textFromFile[i + 1] == ' ')
+                FileStream fstream = File.OpenRead($"{path}note.txt");
+                byte[] array = new byte[fstream.Length];
+                fstream.Read(array, 0, array.Length);
+                string textFromFile = System.Text.Encoding.Default.GetString(array);
+
+                Console.WriteLine(textFromFile);
+
+                System.Console.WriteLine(textFromFile.Length);
+                string[] temp_text = new string[textFromFile.Length / 2];//мне самому это не нравится. избыточно
+
+                int k = 0;
+                for (int i = 0; i < textFromFile.Length - 1; i++)
                 {
-                    k++;
-                    i++;//пропускаем все пробелы
-                }
-            }
-
-            string[] text = new string[k];
-            for (int i = 0; i < k; i++)
-            {
-                text[i] = temp_text[i];
-            }
-
-
-            int[] num = new int[text.Length];
-            k = 0;
-            for (int i = 0; i < text.Length; i++)
-            {
-                int.TryParse(text[i], out num[k]);
-                k++;
-            }
-
-            int[] sortedarray = new int[k];
-            for (int i = 0; i < k; i++)
-            {
-                sortedarray[i] = num[i];
-            }
-
-            int temp;
-
-            for (int i = 0; i < sortedarray.Length - 1; i++)
-            {
-                for (int j = i + 1; j < sortedarray.Length; j++)
-                {
-                    if (sortedarray[i] > sortedarray[j])
+                    temp_text[k] += textFromFile[i];
+                    if (textFromFile[i + 1] == ' ')
                     {
-                        temp = sortedarray[i];
-                        sortedarray[i] = sortedarray[j];
-                        sortedarray[j] = temp;
+                        k++;
+                        i++;//пропускаем все пробелы
                     }
                 }
-            }
-            fstream.Close();
 
-            fstream = new FileStream($"{path}note.txt", FileMode.Truncate);
-            StreamWriter writer = new StreamWriter(fstream);
-            for (int i = 0; i < sortedarray.Length; i++)
-                writer.Write(sortedarray[i] + " ");
-            writer.Close();
+                string[] text = new string[k];
+                for (int i = 0; i < k; i++)
+                {
+                    text[i] = temp_text[i];
+                }
+
+
+                int[] num = new int[text.Length];
+                k = 0;
+                for (int i = 0; i < text.Length; i++)
+                {
+                    int.TryParse(text[i], out num[k]);
+                    k++;
+                }
+
+                int[] sortedarray = new int[k];
+                for (int i = 0; i < k; i++)
+                {
+                    sortedarray[i] = num[i];
+                }
+
+                int temp;
+
+                for (int i = 0; i < sortedarray.Length - 1; i++)
+                {
+                    for (int j = i + 1; j < sortedarray.Length; j++)
+                    {
+                        if (sortedarray[i] > sortedarray[j])
+                        {
+                            temp = sortedarray[i];
+                            sortedarray[i] = sortedarray[j];
+                            sortedarray[j] = temp;
+                        }
+                    }
+                }
+                fstream.Close();
+
+                fstream = new FileStream($"{path}note.txt", FileMode.Truncate);
+                StreamWriter writer = new StreamWriter(fstream);
+                for (int i = 0; i < sortedarray.Length; i++)
+                    writer.Write(sortedarray[i] + " ");
+                writer.Close();
+            }
+            else
+                Console.WriteLine("Файла с нужным расположением не существует.");
         }
     }
 }
