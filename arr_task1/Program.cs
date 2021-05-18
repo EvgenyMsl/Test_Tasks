@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace arr_task1
+namespace arr_task1 
 {
     class Program
     {
