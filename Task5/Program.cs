@@ -7,7 +7,7 @@ namespace Task5
         static void Main(string[] args)
         {
             int number;
-            int answersum=Task5(out number);
+            Task_stars();
         }
 
         static int Task5(out int number)
@@ -26,6 +26,35 @@ namespace Task5
             n--;
             Console.WriteLine(n + " слагаемых и сумма " + answersum);
             return answersum;
+        }
+        static void Task_stars()
+        {   
+            //    *
+            //   ***
+            //  *****
+            // *******
+            //*********
+            // *******
+            //  *****
+            //   ***
+            //    *
+            
+            int n2;
+            int n = n2 = 5;
+
+            for (int j = 0; j < n2*2; j++)
+            {
+                for (int i = 0; i < n; i++)
+                    Console.Write(' ');
+                for (int i = n; i < n2+(n2-n)-1; i++)//добиваем строку до нужного
+                    Console.Write('*');
+                if (j < n2)
+                    n--;
+                else
+                    n++;
+                Console.WriteLine();
+            }
+
         }
     }
 
