@@ -10,7 +10,7 @@ namespace arr_task5
             task_5_v1();
         }
 
-        static void task_5_v1()
+        static void task_5_v1() 
         {
             string path = @"SomeDir\";
             DirectoryInfo dirInfo = new DirectoryInfo(path);
