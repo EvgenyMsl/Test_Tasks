@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace arr_task6
+namespace arr_task6 
 {
     class Program
     {
