@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace arr_task7
-{
+{ 
     class Program
     {
         static void Main(string[] args)
