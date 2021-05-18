@@ -8,7 +8,7 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            taskSumFirst3xOdd();
         }
 
         //Ввести n чисел (n задается пользователем). Посчитать сумму трех первых нечетных
