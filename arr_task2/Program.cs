@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace arr_task2
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {
