@@ -20,11 +20,19 @@ namespace arr_task3
             Console.WriteLine("Введите длину массива");
             string n = Console.ReadLine();
 
+            System.Console.WriteLine("Введите элементы массива в диапазоне от -100 до 100");
             try
             {
                 int[] input = new int[int.Parse(n)];
                 for (int i = 0; i < input.Length; i++)
+                { 
                     input[i] = int.Parse(System.Console.ReadLine());
+                    if((input[i]>=100)||(input[i]<=-100))
+                    {
+                        System.Console.WriteLine("Не правильно значение! Введите еще раз");
+                        i--;
+                    }
+                }
 
                 System.Console.WriteLine("min: " + input.Min());
                 System.Console.WriteLine("max: " + input.Max());
@@ -53,10 +61,8 @@ namespace arr_task3
                 Console.WriteLine("Массив после преобразования: ");
 
                 for (int i = 0; i < input.Length; i++)
-                {
                     System.Console.Write(input[i] + " ");
-                    return;
-                }
+
             }
             catch (System.InvalidOperationException ex)
             {

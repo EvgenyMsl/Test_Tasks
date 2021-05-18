@@ -11,7 +11,6 @@ namespace arr_task4
 
         static void task_4()  
         {
-
             int N = 3;
             int[] first_ar = new int[N];
             int[] second_ar = new int[N];
@@ -86,7 +85,6 @@ namespace arr_task4
             {
                 System.Console.WriteLine("Некорректный ввод.");
             }
-
         }
     }
 }
