@@ -36,7 +36,7 @@ namespace OOP_task1
                         break;
                 }*/
 
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     Book book = new Book();
                     lib.Add(book);
@@ -44,11 +44,15 @@ namespace OOP_task1
 
                 Journal journal = new Journal();
                 lib.Add(journal);
+
                 List<Book> selection = new List<Book>();
-                lib.Find("b");
-                lib.DeleteSelection();
+
+                lib.Find<Book>();
+                lib.Change<Book>();
+                lib.DeleteSelection<Book>();
 
                 lib.Viewall();
+
                 lib.DeleteAll();
                 lib.Viewall();
             }
@@ -91,108 +95,234 @@ namespace OOP_task1
             journalsList.Add(journal);
         }
 
-        public void DeleteSelection()
+        public void DeleteSelection<T>()
         {
-            foreach (Book bl in selectionBook)
-                booksList.Remove(bl);
-            System.Console.WriteLine("Удаление произведено успешно");
+            if(typeof(T).Name=="Book")
+                foreach (Book bl in selectionBook)
+                    booksList.Remove(bl);
+
+            if (typeof(T).Name == "Book")
+                foreach (Journal jl in selectionJournal)
+                    journalsList.Remove(jl);
+
+            //System.Console.WriteLine("Удаление произведено успешно");
         }
 
         public void DeleteAll()
         {
-            foreach (Book bl in booksList)
-                booksList.Remove(bl);
-            foreach (Journal jl in journalsList)
-                journalsList.Remove(jl);
+            for (int i = 0; i < booksList.Count; i++)
+            {
+                booksList.Remove(booksList[i]);
+            }
+            for (int i = 0; i < journalsList.Count; i++)
+            {
+                journalsList.Remove(journalsList[i]);
+            }
+
             System.Console.WriteLine("Библиотека удалена");
         }
 
 
-        public void Find(string typeofstuff)
+        public void Find<T>()
         {
             System.Console.WriteLine("Введите искомое имя");
             string name = System.Console.ReadLine();
-
-            switch (typeofstuff)
+            switch (typeof(T).Name)
             {
-                case "b":
+                case "Book":
                     {
                         foreach (Book bl in booksList)
                             if (bl.Name == name)
                                 selectionBook.Add(bl);
+                        ViewSelection<Book>();
                         break;
                     }
 
-                case "j":
+                case "Journal":
                     {
                         foreach (Journal jl in journalsList)
                             if (jl.Name == name)
                                 selectionJournal.Add(jl);
+                        ViewSelection<Journal>();
                         break;
                     }
                 default:
                     {
-                        System.Console.WriteLine("Введите тип b-Книги j-Журналы");
-                        typeofstuff = System.Console.ReadLine();
+                        System.Console.WriteLine("Ошибка");
                         break;
 
                     }
             }
-            ViewSelection(typeofstuff);
+            
         }
 
-        public void Change(string typeofstuff)
+        public void Change<T>()
         {
+            string strAnswer;
             bool iscorrect=false;
-            switch (typeofstuff)
+            var type = typeof(T).Name;
+
+            switch (type)
             {
-                case "b":
+                case "Book":
                     {
                         if (selectionBook.Count>1)
                         {
-                            Chooseone();
+                            Chooseone<Book>();
                         }
                         else
                         {
-                            selectionBook[0].Author = Console.ReadLine();
-                            selectionBook[0].Genre = Console.ReadLine();
-                            selectionBook[0].Name = Console.ReadLine();
-                            selectionBook[0].Publishing = Console.ReadLine();
-                            while (!iscorrect)
-                            {
-                                System.Console.WriteLine("Введите корректный год цифрой");
-                                iscorrect = int.TryParse(Console.ReadLine(), out selectionBook[0].Yearofpublishing);
-                            }
-                            iscorrect = false;
+                            
+                            System.Console.WriteLine("Введите новое название или нажмите enter");
+                            strAnswer = Console.ReadLine();
+                            if(strAnswer != "")
+                            selectionBook[0].Name = strAnswer;
 
                             while (!iscorrect)
                             {
-                                System.Console.WriteLine("Введите корректное количество ");
-                                iscorrect = int.TryParse(Console.ReadLine(), out selectionBook[0].Quantity);
+                                System.Console.WriteLine("Введите новое корректное количество или нажмите enter");
+                                strAnswer = Console.ReadLine();
+                                iscorrect = (strAnswer != "")? int.TryParse(strAnswer, out selectionBook[0].Quantity) : true; 
                             }
                             iscorrect = false;
-                            
+
+                            System.Console.WriteLine("Введите новое издательство или нажмите enter");
+                            strAnswer = Console.ReadLine();
+                            if (strAnswer != "")
+                                selectionBook[0].Publishing = strAnswer;
+
+                            System.Console.WriteLine("Введите автора книги или нажмите enter");
+                            strAnswer = Console.ReadLine();
+                            if (strAnswer != "")
+                                selectionBook[0].Author = strAnswer;
+
+                            System.Console.WriteLine("Введите жанр книги или нажмите enter");
+                            strAnswer = Console.ReadLine();
+                            if (strAnswer != "")
+                                selectionBook[0].Genre = strAnswer;
+
+                            System.Console.WriteLine("Введите корректный год их издания или нажмите enter");
+                            while (!iscorrect)
+                            {
+                                System.Console.WriteLine("Введите корректный год цифрой или нажмите enter");
+                                strAnswer = Console.ReadLine();
+                                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionBook[0].Yearofpublishing) : true;
+                            }
+                        }
+                        break;
+                    }
+                case "Journal":
+                    {
+                        if (selectionJournal.Count > 1)
+                        {
+                            Chooseone<Journal>();
+                        }
+                        else
+                        {
+                                System.Console.WriteLine("Введите название");
+                                strAnswer = Console.ReadLine();
+                                if (strAnswer != "")
+                                    selectionJournal[0].Name=strAnswer;
+
+                                while (!iscorrect)
+                                {
+                                    System.Console.WriteLine("Введите новое корректное количество ");
+                                    strAnswer = Console.ReadLine();
+                                    iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionJournal[0].Quantity):true;
+ 
+                                }
+                                iscorrect = false;
+
+                                System.Console.WriteLine("Введите издательство");
+                                strAnswer = Console.ReadLine();
+                                if (strAnswer != "")
+                                    selectionJournal[0].Publishing = strAnswer;
+
+                                System.Console.WriteLine("Введите периодичность издания");
+                                strAnswer = Console.ReadLine();
+                                if (strAnswer != "")
+                                    selectionJournal[0].Periodicity = strAnswer;
+
+                                while (!iscorrect)
+                                {
+                                    System.Console.WriteLine("Введите корректный год цифрой");
+                                    strAnswer = Console.ReadLine();
+                                    iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionJournal[0].Yearofrelease):true;
+                                }
+                                iscorrect = false;
+
+                                while (!iscorrect)
+                                {
+                                    System.Console.WriteLine("Введите корректный номер выпуска");
+                                    strAnswer = Console.ReadLine();
+                                    iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionJournal[0].Quantity) : true;
+                                }
                         }
                         break;
                     }
             }
         }
 
-        void Chooseone()
+        void Chooseone<T>() where T: Stuff
         {
+            int id = 0;
+            bool iscorrect = false;
 
+            while (!iscorrect)
+            {
+                System.Console.WriteLine("Введите корректный id");
+                iscorrect = int.TryParse(Console.ReadLine(), out id);
+            }
+
+            iscorrect = false;
+
+            switch (typeof(T).Name)
+            {
+                case "Book":
+                    {
+                        foreach (Book b in booksList)
+                        {
+                            if (id == b.Id)
+                            {
+                                DeleteSelection<Book>();
+                                selectionBook.Add(b);
+                                System.Console.WriteLine("КНИГА***************************************");
+                                b.Display();
+                                break;
+                            }
+                        }
+                        
+                    }
+                    break;
+                case "Journal":
+                    {
+                        foreach (Journal j in journalsList)
+                        {
+                            if (id == j.Id)
+                            {
+                                DeleteSelection<Journal>();
+                                System.Console.WriteLine("ЖУРНАЛ**************************************");
+                                selectionJournal.Add(j);
+                                j.Display();
+                                break;
+                            }
+                        }
+                    }
+                    break;
+            }
         }
 
-        public void ViewOne(string typeofstuff)
+        public void ViewOne<T>() where T : Stuff
         {
-            switch (typeofstuff)
+            
+            switch (typeof(T).Name)
             {
-                case "b":
+                case "Book":
                     {
                         selectionBook[0].Display();
                         break;
                     }
-                case "j":
+                case "Journal":
                     {
                         selectionJournal[0].Display();
                         break;
@@ -200,28 +330,28 @@ namespace OOP_task1
             }
         }
 
-        public void ViewSelection(string typeofstuff)
+        public void ViewSelection<T>() where T : Stuff
         {
-            switch (typeofstuff)
+            switch (typeof(T).Name)
             {
-                case "b":
-                    Console.WriteLine("Книги с выбранным именем:");
+                case "Book":              
+                    Console.WriteLine("Книги с выбранным именем:*******************");
                     if (selectionBook.Count != 0)
                     {
                         foreach (Book sb in selectionBook)
-                            sb.Display();
+                        sb.Display();
                     }
                     else
                     {
                         Console.WriteLine("Книг с выбранным именем нет");
                     }
                     break;
-                case "j":
+                case "Journal":
                     if (selectionJournal.Count!=0)
-                    {
-                        Console.WriteLine("Журналы с выбранным именем:");
+                    {              
+                        Console.WriteLine("Журналы с выбранным именем:*****************");
                         foreach (Journal sb in selectionJournal)
-                            sb.Display();
+                        sb.Display();
                     }
                     else
                     {
@@ -237,13 +367,14 @@ namespace OOP_task1
 
         public void Viewall()
         {
-            System.Console.WriteLine("BOOKS***************************************");
+            System.Console.WriteLine("ВСЯ БИБЛИОТЕКА******************************");
+            System.Console.WriteLine("*********************************************");
+            System.Console.WriteLine("КНИГИ***************************************");
             if (booksList.Count != 0)
             {
                 foreach (Book sb in booksList)
                 {
                     sb.Display();
-                    System.Console.WriteLine("********************************************");
                 }
             }
             else
@@ -251,13 +382,12 @@ namespace OOP_task1
                 System.Console.WriteLine("Предложение отсутствует");
                 System.Console.WriteLine("********************************************");
             }
-            System.Console.WriteLine("JOURNALS************************************");
+            System.Console.WriteLine("ЖУРНАЛЫ*************************************");
             if (journalsList.Count != 0)
             {
                 foreach (Journal sj in journalsList)
                 {
                     sj.Display();
-                    System.Console.WriteLine("********************************************");
                 }
             }
             else
@@ -273,7 +403,9 @@ namespace OOP_task1
 
     abstract class Stuff
     {
-        //protected int id; //в литсте и так уникальные значения позиций
+        protected internal readonly int Id; 
+        private static int newId=0;
+
         protected internal string Name;
         protected internal int Quantity;
         protected internal string Publishing;
@@ -282,7 +414,9 @@ namespace OOP_task1
 
         protected Stuff()
         {
-            
+            newId++;
+            Id = newId;
+
             System.Console.WriteLine("Введите название");
             Name = Console.ReadLine();
 
@@ -322,6 +456,7 @@ namespace OOP_task1
         }
         override public void Display()
         {
+            System.Console.WriteLine($"ID: {Id}");
             System.Console.WriteLine($"Наименование: {Name}");
             System.Console.WriteLine($"Имеющееся количество: {Quantity}");
             System.Console.WriteLine($"Издательство: {Publishing}");
@@ -360,6 +495,7 @@ namespace OOP_task1
 
         override public void Display()
         {
+            System.Console.WriteLine($"ID: {Id}");
             System.Console.WriteLine($"Наименование: {Name}");
             System.Console.WriteLine($"Имеющееся количество: {Quantity}");
             System.Console.WriteLine($"Издательство: {Publishing}");
