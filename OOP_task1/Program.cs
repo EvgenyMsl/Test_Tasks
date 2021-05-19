@@ -14,78 +14,94 @@ namespace OOP_task1
 
             while (!end)
             {
-                System.Console.WriteLine("Enter a command (\"help\" for help)");
+                System.Console.WriteLine("\nEnter a command (\"help\" for help)");
                 switch(System.Console.ReadLine())
                 {
-                    case "-cb"://add book
+                    case "-cb":
+                        System.Console.WriteLine("\ncreating book");
                         Book book = new Book();
                         lib_book.Add(book);
                     break;
-                    case "-cj":// "add journal":
+                    case "-cj":
+                        System.Console.WriteLine("\ncreating journal");
                         Journal journal = new Journal();
                         lib_journal.Add(journal);
                         break;
                     case "-dbs":
+                        System.Console.WriteLine("\ndeletimg all books with definite name");
                         lib_book.Find();
                         lib_book.DeleteSelection();
                         break;
                     case "-djs":
+                        System.Console.WriteLine("\ndeleting all journals with definite name");
                         lib_journal.Find();
                         lib_journal.DeleteSelection();
                         break;
                     case "-dob":
+                        System.Console.WriteLine("\ndeleting one book with definite name:");
                         lib_book.Find();
                         lib_book.ChooseOne();
                         lib_book.DeleteSelection();
                         break;
                     case "-doj":
+                        System.Console.WriteLine("\ndeleting one journal with definite name:");
                         lib_journal.Find();
                         lib_journal.ChooseOne();
                         lib_journal.DeleteSelection();
                         break;
                     case "-chb":
+                        System.Console.WriteLine("\nchanging book");
                         lib_book.Find();
                         lib_book.Change();
                         break;
                     case "-chj":
+                        System.Console.WriteLine("\nchanging journal");
                         lib_journal.Find();
                         lib_journal.Change();
                         break;
                     case "-fb":
+                        System.Console.WriteLine("\nfinding book");
                         lib_book.Find();
                         break;
                     case "-fj":
+                        System.Console.WriteLine("\nfinding journal");
                         lib_journal.Find();
                         break;
                     case "-wb":
+                        System.Console.WriteLine("\nwiew all books");
                         lib_book.ViewAll();
                         break;
                     case "-wj":
+                        System.Console.WriteLine("\nwiew all journals");
                         lib_journal.ViewAll();
                         break;
 
                     case "-wob":
+                        System.Console.WriteLine("\nwiew one books");
                         lib_book.Find();
                         lib_book.ChooseOne();
                         lib_book.ViewOne();
                         break;
                     case "-woj":
+                        System.Console.WriteLine("\nwiew one journals");
                         lib_journal.Find();
                         lib_journal.ChooseOne();
                         lib_journal.ViewOne();
                         break;
                     case "-dab":
+                        System.Console.WriteLine("\ndeleting all books");
                         lib_book.DeleteAll();
                         break;
                     case "-daj":
+                        System.Console.WriteLine("\ndeleting all journals");
                         lib_journal.DeleteAll();
                         break;
                     case "-help":
 
-                        System.Console.WriteLine("create book \"-cb\"");
+                        System.Console.WriteLine("\ncreate book \"-cb\"");
                         System.Console.WriteLine("create journal \"-cj\"");
-                        System.Console.WriteLine("delete one book with definite name \"-dbs\"");
-                        System.Console.WriteLine("delete one journal with definite name \"-djs\"");
+                        System.Console.WriteLine("delete one book with definite name \"-dob\"");
+                        System.Console.WriteLine("delete one journal with definite name \"-doj\"");
                         System.Console.WriteLine("delete all book with definite name \"-dbs\"");
                         System.Console.WriteLine("delete all journal with definite name \"-djs\"");
                         System.Console.WriteLine("change book \"-chb\"");
@@ -147,10 +163,8 @@ namespace OOP_task1
 
         public void DeleteAll()
         {
-            foreach (Ttypeofstuff tl in selectionThing)
-                thingList.Remove(tl);
-
-            System.Console.WriteLine($"{typeof(Ttypeofstuff).Name} id deleted");
+            thingList.Clear();
+            System.Console.WriteLine($"{typeof(Ttypeofstuff).Name} is deleted");
         }
 
 
