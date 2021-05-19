@@ -98,6 +98,7 @@ namespace OOP_task1
                         break;
                     case "-help":
 
+
                         System.Console.WriteLine("\ncreate book \"-cb\"");
                         System.Console.WriteLine("create journal \"-cj\"");
                         System.Console.WriteLine("delete one book with definite name \"-dob\"");
