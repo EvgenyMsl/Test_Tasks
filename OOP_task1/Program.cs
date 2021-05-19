@@ -9,61 +9,111 @@ namespace OOP_task1
         {
 
             bool end = false;
-            Library lib = new Library();
+            Library<Book> lib_book = new Library<Book>();
+            Library<Journal> lib_journal = new Library<Journal>();
+
             while (!end)
             {
-                /*System.Console.WriteLine("Введите команду");
+                System.Console.WriteLine("Enter a command (\"help\" for help)");
                 switch(System.Console.ReadLine())
                 {
-                    case "1"://add book
+                    case "-cb"://add book
                         Book book = new Book();
-                        lib.Add(book);
+                        lib_book.Add(book);
                     break;
-                    case "2":// "add journal":
+                    case "-cj":// "add journal":
                         Journal journal = new Journal();
-                        lib.Add(journal);
+                        lib_journal.Add(journal);
                         break;
-                    case "3"://"delete book":
+                    case "-dbs":
+                        lib_book.Find();
+                        lib_book.DeleteSelection();
                         break;
-                    case "4":// "delete journal":
+                    case "-djs":
+                        lib_journal.Find();
+                        lib_journal.DeleteSelection();
                         break;
-                    case "5":// "change book":
+                    case "-dob":
+                        lib_book.Find();
+                        lib_book.ChooseOne();
+                        lib_book.DeleteSelection();
                         break;
-                    case "6":// "change journal":
+                    case "-doj":
+                        lib_journal.Find();
+                        lib_journal.ChooseOne();
+                        lib_journal.DeleteSelection();
                         break;
-                    case "-end":
+                    case "-chb":
+                        lib_book.Find();
+                        lib_book.Change();
+                        break;
+                    case "-chj":
+                        lib_journal.Find();
+                        lib_journal.Change();
+                        break;
+                    case "-fb":
+                        lib_book.Find();
+                        break;
+                    case "-fj":
+                        lib_journal.Find();
+                        break;
+                    case "-wb":
+                        lib_book.ViewAll();
+                        break;
+                    case "-wj":
+                        lib_journal.ViewAll();
+                        break;
+
+                    case "-wob":
+                        lib_book.Find();
+                        lib_book.ChooseOne();
+                        lib_book.ViewOne();
+                        break;
+                    case "-woj":
+                        lib_journal.Find();
+                        lib_journal.ChooseOne();
+                        lib_journal.ViewOne();
+                        break;
+                    case "-dab":
+                        lib_book.DeleteAll();
+                        break;
+                    case "-daj":
+                        lib_journal.DeleteAll();
+                        break;
+                    case "-help":
+
+                        System.Console.WriteLine("create book \"-cb\"");
+                        System.Console.WriteLine("create journal \"-cj\"");
+                        System.Console.WriteLine("delete one book with definite name \"-dbs\"");
+                        System.Console.WriteLine("delete one journal with definite name \"-djs\"");
+                        System.Console.WriteLine("delete all book with definite name \"-dbs\"");
+                        System.Console.WriteLine("delete all journal with definite name \"-djs\"");
+                        System.Console.WriteLine("change book \"-chb\"");
+                        System.Console.WriteLine("change journal \"-chj\"");
+                        System.Console.WriteLine("find book \"-fb\"");
+                        System.Console.WriteLine("find journal \"-fj\"");
+                        System.Console.WriteLine("wiew all books\"-wb\"");
+                        System.Console.WriteLine("wiew all journals \"-wj\"");
+                        System.Console.WriteLine("wiew one books\"-wob\"");
+                        System.Console.WriteLine("wiew one journals \"-woj\"");
+                        System.Console.WriteLine("delete all books \"-dab\"");
+                        System.Console.WriteLine("delete all journals \"-daj\"");
+
+
+                        System.Console.WriteLine("end of work \"-end\"");
+
+                        break;
+                    case "end":
                         end = true;
                         break;
-                }*/
-
-                for (int i = 0; i < 3; i++)
-                {
-                    Book book = new Book();
-                    lib.Add(book);
                 }
-
-                Journal journal = new Journal();
-                lib.Add(journal);
-
-                List<Book> selection = new List<Book>();
-
-                lib.Find<Book>();
-                lib.Change<Book>();
-                lib.DeleteSelection<Book>();
-
-                lib.Viewall();
-
-                lib.DeleteAll();
-                lib.Viewall();
             }
         }
     }
-    class Library
+    class Library<Ttypeofstuff> where Ttypeofstuff: Stuff
     {
-        private List<Book> booksList = new List<Book>();
-        private List<Journal> journalsList = new List<Journal>();
-        private List<Book> selectionBook = new List<Book>();
-        private List<Journal> selectionJournal = new List<Journal>();
+        private List<Ttypeofstuff> thingList = new List<Ttypeofstuff>();
+        private List<Ttypeofstuff> selectionThing = new List<Ttypeofstuff>();
 
         private readonly string databasepath = "\\";
 
@@ -85,321 +135,127 @@ namespace OOP_task1
 
         }
 
-        public void Add(Book book)
+        public void Add(Ttypeofstuff stuff)
         {
-            booksList.Add(book);
+            thingList.Add(stuff);
         }
 
-        public void Add(Journal journal)
+        public void DeleteSelection()
         {
-            journalsList.Add(journal);
-        }
-
-        public void DeleteSelection<T>()
-        {
-            if(typeof(T).Name=="Book")
-                foreach (Book bl in selectionBook)
-                    booksList.Remove(bl);
-
-            if (typeof(T).Name == "Book")
-                foreach (Journal jl in selectionJournal)
-                    journalsList.Remove(jl);
-
-            //System.Console.WriteLine("Удаление произведено успешно");
+            selectionThing.Clear();
         }
 
         public void DeleteAll()
         {
-            for (int i = 0; i < booksList.Count; i++)
-            {
-                booksList.Remove(booksList[i]);
-            }
-            for (int i = 0; i < journalsList.Count; i++)
-            {
-                journalsList.Remove(journalsList[i]);
-            }
+            foreach (Ttypeofstuff tl in selectionThing)
+                thingList.Remove(tl);
 
-            System.Console.WriteLine("Библиотека удалена");
+            System.Console.WriteLine($"{typeof(Ttypeofstuff).Name} id deleted");
         }
 
 
-        public void Find<T>()
+        public void Find()
         {
-            System.Console.WriteLine("Введите искомое имя");
+            DeleteSelection();
+            System.Console.WriteLine("Enter searching name");
             string name = System.Console.ReadLine();
-            switch (typeof(T).Name)
-            {
-                case "Book":
-                    {
-                        foreach (Book bl in booksList)
-                            if (bl.Name == name)
-                                selectionBook.Add(bl);
-                        ViewSelection<Book>();
-                        break;
-                    }
 
-                case "Journal":
-                    {
-                        foreach (Journal jl in journalsList)
-                            if (jl.Name == name)
-                                selectionJournal.Add(jl);
-                        ViewSelection<Journal>();
-                        break;
-                    }
-                default:
-                    {
-                        System.Console.WriteLine("Ошибка");
-                        break;
-
-                    }
-            }
-            
+            foreach (Ttypeofstuff bl in thingList)
+                if (bl.Name == name)
+                    selectionThing.Add(bl);
+                    ViewSelection();
         }
 
-        public void Change<T>()
+        public void Change()
         {
-            string strAnswer;
-            bool iscorrect=false;
-            var type = typeof(T).Name;
-
-            switch (type)
+            if (selectionThing.Count > 1)
             {
-                case "Book":
+                ChooseOne();
+                Change();
+            }
+            else
+            {
+                if (selectionThing.Count != 0)
+                {
+                    selectionThing[0].Change();
+                    selectionThing.Clear();
+                }
+                else
+                {
+                    System.Console.WriteLine("This item is missing. Try again? y/n");
+                    var answer = System.Console.ReadLine();
+                    if (answer == "y")
                     {
-                        if (selectionBook.Count>1)
-                        {
-                            Chooseone<Book>();
-                        }
-                        else
-                        {
-                            
-                            System.Console.WriteLine("Введите новое название или нажмите enter");
-                            strAnswer = Console.ReadLine();
-                            if(strAnswer != "")
-                            selectionBook[0].Name = strAnswer;
-
-                            while (!iscorrect)
-                            {
-                                System.Console.WriteLine("Введите новое корректное количество или нажмите enter");
-                                strAnswer = Console.ReadLine();
-                                iscorrect = (strAnswer != "")? int.TryParse(strAnswer, out selectionBook[0].Quantity) : true; 
-                            }
-                            iscorrect = false;
-
-                            System.Console.WriteLine("Введите новое издательство или нажмите enter");
-                            strAnswer = Console.ReadLine();
-                            if (strAnswer != "")
-                                selectionBook[0].Publishing = strAnswer;
-
-                            System.Console.WriteLine("Введите автора книги или нажмите enter");
-                            strAnswer = Console.ReadLine();
-                            if (strAnswer != "")
-                                selectionBook[0].Author = strAnswer;
-
-                            System.Console.WriteLine("Введите жанр книги или нажмите enter");
-                            strAnswer = Console.ReadLine();
-                            if (strAnswer != "")
-                                selectionBook[0].Genre = strAnswer;
-
-                            System.Console.WriteLine("Введите корректный год их издания или нажмите enter");
-                            while (!iscorrect)
-                            {
-                                System.Console.WriteLine("Введите корректный год цифрой или нажмите enter");
-                                strAnswer = Console.ReadLine();
-                                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionBook[0].Yearofpublishing) : true;
-                            }
-                        }
-                        break;
+                        Find();
                     }
-                case "Journal":
-                    {
-                        if (selectionJournal.Count > 1)
-                        {
-                            Chooseone<Journal>();
-                        }
-                        else
-                        {
-                                System.Console.WriteLine("Введите название");
-                                strAnswer = Console.ReadLine();
-                                if (strAnswer != "")
-                                    selectionJournal[0].Name=strAnswer;
-
-                                while (!iscorrect)
-                                {
-                                    System.Console.WriteLine("Введите новое корректное количество ");
-                                    strAnswer = Console.ReadLine();
-                                    iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionJournal[0].Quantity):true;
- 
-                                }
-                                iscorrect = false;
-
-                                System.Console.WriteLine("Введите издательство");
-                                strAnswer = Console.ReadLine();
-                                if (strAnswer != "")
-                                    selectionJournal[0].Publishing = strAnswer;
-
-                                System.Console.WriteLine("Введите периодичность издания");
-                                strAnswer = Console.ReadLine();
-                                if (strAnswer != "")
-                                    selectionJournal[0].Periodicity = strAnswer;
-
-                                while (!iscorrect)
-                                {
-                                    System.Console.WriteLine("Введите корректный год цифрой");
-                                    strAnswer = Console.ReadLine();
-                                    iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionJournal[0].Yearofrelease):true;
-                                }
-                                iscorrect = false;
-
-                                while (!iscorrect)
-                                {
-                                    System.Console.WriteLine("Введите корректный номер выпуска");
-                                    strAnswer = Console.ReadLine();
-                                    iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out selectionJournal[0].Quantity) : true;
-                                }
-                        }
-                        break;
-                    }
+                }
             }
         }
 
-        void Chooseone<T>() where T: Stuff
+        public void ChooseOne()
         {
-            int id = 0;
+            int id=-1;
             bool iscorrect = false;
 
             while (!iscorrect)
             {
-                System.Console.WriteLine("Введите корректный id");
+                System.Console.WriteLine("Enter correct id");
                 iscorrect = int.TryParse(Console.ReadLine(), out id);
+                System.Console.WriteLine("ID: " + id);
             }
-
             iscorrect = false;
 
-            switch (typeof(T).Name)
+            foreach (Ttypeofstuff b in thingList)
             {
-                case "Book":
-                    {
-                        foreach (Book b in booksList)
-                        {
-                            if (id == b.Id)
-                            {
-                                DeleteSelection<Book>();
-                                selectionBook.Add(b);
-                                System.Console.WriteLine("КНИГА***************************************");
-                                b.Display();
-                                break;
-                            }
-                        }
-                        
-                    }
+                if (id == b.Id)
+                {
+                    DeleteSelection();
+                    selectionThing.Add(b);
+                    System.Console.WriteLine("********************************************");
+                    b.Display();
                     break;
-                case "Journal":
-                    {
-                        foreach (Journal j in journalsList)
-                        {
-                            if (id == j.Id)
-                            {
-                                DeleteSelection<Journal>();
-                                System.Console.WriteLine("ЖУРНАЛ**************************************");
-                                selectionJournal.Add(j);
-                                j.Display();
-                                break;
-                            }
-                        }
-                    }
-                    break;
+                }
             }
         }
 
-        public void ViewOne<T>() where T : Stuff
+        public void ViewOne()
         {
-            
-            switch (typeof(T).Name)
-            {
-                case "Book":
-                    {
-                        selectionBook[0].Display();
-                        break;
-                    }
-                case "Journal":
-                    {
-                        selectionJournal[0].Display();
-                        break;
-                    }
-            }
+           selectionThing[0].Display();
         }
 
-        public void ViewSelection<T>() where T : Stuff
+        public void ViewSelection()
         {
-            switch (typeof(T).Name)
+            System.Console.WriteLine("********************************************");
+            Console.WriteLine($"{typeof(Ttypeofstuff).Name} with choosen name:");
+            if (selectionThing.Count != 0)
             {
-                case "Book":              
-                    Console.WriteLine("Книги с выбранным именем:*******************");
-                    if (selectionBook.Count != 0)
-                    {
-                        foreach (Book sb in selectionBook)
-                        sb.Display();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Книг с выбранным именем нет");
-                    }
-                    break;
-                case "Journal":
-                    if (selectionJournal.Count!=0)
-                    {              
-                        Console.WriteLine("Журналы с выбранным именем:*****************");
-                        foreach (Journal sb in selectionJournal)
-                        sb.Display();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Журналов с выбранным именем нет");
-                    }
-                    break;
-                default:
-                    System.Console.WriteLine("Неправильный ввод");
-                    break;
+                foreach (Ttypeofstuff sb in selectionThing)
+                sb.Display();
+            }
+            else
+            {
+                Console.WriteLine($"{typeof(Ttypeofstuff).Name} with choosen name: 0");
             }
 
         }
 
-        public void Viewall()
+        public void ViewAll()
         {
-            System.Console.WriteLine("ВСЯ БИБЛИОТЕКА******************************");
-            System.Console.WriteLine("*********************************************");
-            System.Console.WriteLine("КНИГИ***************************************");
-            if (booksList.Count != 0)
+            System.Console.WriteLine("********************************************");
+            if (thingList.Count != 0)
             {
-                foreach (Book sb in booksList)
+                foreach(Ttypeofstuff sb in thingList)
                 {
                     sb.Display();
                 }
             }
             else
             {
-                System.Console.WriteLine("Предложение отсутствует");
+                System.Console.WriteLine("Empty");
                 System.Console.WriteLine("********************************************");
             }
-            System.Console.WriteLine("ЖУРНАЛЫ*************************************");
-            if (journalsList.Count != 0)
-            {
-                foreach (Journal sj in journalsList)
-                {
-                    sj.Display();
-                }
-            }
-            else
-            {
-                System.Console.WriteLine("Предложение отсутствует");
-                System.Console.WriteLine("********************************************");
-            }
-}
-    }
-
- //    книг известны следующие параметры: код, название,                имеющееся количество, автор, жанр, год издания, издательство.
- //журналов известны следующие параметры: код, название, периодичность, имеющееся количество,                           издательство,  год, номер.              
+        }
+    }          
 
     abstract class Stuff
     {
@@ -417,20 +273,22 @@ namespace OOP_task1
             newId++;
             Id = newId;
 
-            System.Console.WriteLine("Введите название");
+            System.Console.WriteLine("********************************************");
+            System.Console.WriteLine("Enter the title");
             Name = Console.ReadLine();
 
             while (!iscorrect)
             {
-                System.Console.WriteLine("Введите корректное количество ");
+                System.Console.WriteLine("Enter correct quantity");
                 iscorrect=int.TryParse(Console.ReadLine(), out Quantity);
             }
             iscorrect = false;
             
-            System.Console.WriteLine("Введите издательство");
+            System.Console.WriteLine("Enter Publishing");
             Publishing = Console.ReadLine();
         }
         abstract public void Display();
+        abstract public void Change();
     }
 
     class Book: Stuff
@@ -441,14 +299,14 @@ namespace OOP_task1
 
         public Book()
         {
-            System.Console.WriteLine("Введите автора книги");
+            System.Console.WriteLine("Enter an author of book");
             Author = Console.ReadLine();
-            System.Console.WriteLine("Введите жанр книги");
+            System.Console.WriteLine("Enter ganre of book");
             Genre = Console.ReadLine();
             
             while (!iscorrect)
             {
-                System.Console.WriteLine("Введите корректный год их издания");
+                System.Console.WriteLine("Enter correct year of publishing");
                 iscorrect = int.TryParse(Console.ReadLine(), out Yearofpublishing);
             }
             iscorrect = false;
@@ -457,13 +315,52 @@ namespace OOP_task1
         override public void Display()
         {
             System.Console.WriteLine($"ID: {Id}");
-            System.Console.WriteLine($"Наименование: {Name}");
-            System.Console.WriteLine($"Имеющееся количество: {Quantity}");
-            System.Console.WriteLine($"Издательство: {Publishing}");
-            System.Console.WriteLine($"Автор: {Author}");
-            System.Console.WriteLine($"Жанр: {Genre}");
-            System.Console.WriteLine($"Год издательства: {Yearofpublishing}");
+            System.Console.WriteLine($"Title: {Name}");
+            System.Console.WriteLine($"Quantity: {Quantity}");
+            System.Console.WriteLine($"Publishing {Publishing}");
+            System.Console.WriteLine($"Author: {Author}");
+            System.Console.WriteLine($"Genre: {Genre}");
+            System.Console.WriteLine($"Yearofpublishing: {Yearofpublishing}");
             System.Console.WriteLine("********************************************");
+        }
+
+        public override void Change()
+        {
+            string strAnswer;
+            System.Console.WriteLine("Enter new title of press enter");
+            strAnswer = Console.ReadLine();
+            if (strAnswer != "")
+                Name = strAnswer;
+
+            while (!iscorrect)
+            {
+                System.Console.WriteLine("Enter new corrcet quantity of press enter");
+                strAnswer = Console.ReadLine();
+                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Quantity) : true;
+            }
+            iscorrect = false;
+
+            System.Console.WriteLine("Enter new publishing of press enter");
+            strAnswer = Console.ReadLine();
+            if (strAnswer != "")
+                Publishing = strAnswer;
+
+            System.Console.WriteLine("Enter new author of book or press enter");
+            strAnswer = Console.ReadLine();
+            if (strAnswer != "")
+                Author = strAnswer;
+
+            System.Console.WriteLine("Enter new genre of book or press enter");
+            strAnswer = Console.ReadLine();
+            if (strAnswer != "")
+                Genre = strAnswer;
+
+            while (!iscorrect)
+            {
+                System.Console.WriteLine("Enter new correct year of publishing or press Enter");
+                strAnswer = Console.ReadLine();
+                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Yearofpublishing) : true;
+            }
         }
     }
 
@@ -475,19 +372,19 @@ namespace OOP_task1
 
         public Journal()
         {
-            System.Console.WriteLine("Введите периодичность издания");
+            System.Console.WriteLine("Enter the publication frequency");
             Periodicity = Console.ReadLine();
             
             while (!iscorrect)
             {
-                System.Console.WriteLine("Введите год издания");
+                System.Console.WriteLine("Enter the year of publication");
                 iscorrect = int.TryParse(Console.ReadLine(), out Yearofrelease);
             }
             iscorrect = false;
 
             while (!iscorrect)
             {
-                System.Console.WriteLine("Введите номер выпуска");
+                System.Console.WriteLine("Enter the release number");
                 iscorrect = int.TryParse(Console.ReadLine(), out Number);
             }
             iscorrect = false;
@@ -496,14 +393,57 @@ namespace OOP_task1
         override public void Display()
         {
             System.Console.WriteLine($"ID: {Id}");
-            System.Console.WriteLine($"Наименование: {Name}");
-            System.Console.WriteLine($"Имеющееся количество: {Quantity}");
-            System.Console.WriteLine($"Издательство: {Publishing}");
-            System.Console.WriteLine($"Периодичность: {Periodicity}");
-            System.Console.WriteLine($"Год выпуска: {Yearofrelease}");
-            System.Console.WriteLine($"Номер выпуска: {Number}");
+            System.Console.WriteLine($"Title : {Name}");
+            System.Console.WriteLine($"Quantity: {Quantity}");
+            System.Console.WriteLine($"Publishing: {Publishing}");
+            System.Console.WriteLine($"Periodicity: {Periodicity}");
+            System.Console.WriteLine($"Year of release: {Yearofrelease}");
+            System.Console.WriteLine($"Number: {Number}");
             System.Console.WriteLine("********************************************");
 
+        }
+
+        public override void Change()
+        {
+            string strAnswer;
+            System.Console.WriteLine("Enter new title or press Enter");
+            strAnswer = Console.ReadLine();
+            if (strAnswer != "")
+                Name = strAnswer;
+
+            while (!iscorrect)
+            {
+                System.Console.WriteLine("Enter new correct quantity or press Enter");
+                strAnswer = Console.ReadLine();
+                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Quantity) : true;
+
+            }
+            iscorrect = false;
+
+            System.Console.WriteLine("Enter new publishing or press Enter");
+            strAnswer = Console.ReadLine();
+            if (strAnswer != "")
+                Publishing = strAnswer;
+
+            System.Console.WriteLine("Enter new year of release or press Enter");
+            strAnswer = Console.ReadLine();
+            if (strAnswer != "")
+                Periodicity = strAnswer;
+
+            while (!iscorrect)
+            {
+                System.Console.WriteLine("Enter new correct year of release by number or press Enter");
+                strAnswer = Console.ReadLine();
+                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Yearofrelease) : true;
+            }
+            iscorrect = false;
+
+            while (!iscorrect)
+            {
+                System.Console.WriteLine("Enter new correct release number or press Enter");
+                strAnswer = Console.ReadLine();
+                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Quantity) : true;
+            }
         }
     }
 
