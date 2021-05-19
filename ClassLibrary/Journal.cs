@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library
+namespace ClassLibrary
 {
-
-    class Journal : Stuff
+    public class Journal : Stuff, IStuff
     {
         public string Periodicity;
         public int Yearofrelease;
@@ -31,7 +30,7 @@ namespace Library
             iscorrect = false;
         }
 
-        override public void Display()
+        public void Display()
         {
             System.Console.WriteLine($"ID: {Id}");
             System.Console.WriteLine($"Title : {Name}");
@@ -44,7 +43,7 @@ namespace Library
 
         }
 
-        public override void Change()
+        public void Change()
         {
             string strAnswer;
             System.Console.WriteLine("Enter new title or press Enter");

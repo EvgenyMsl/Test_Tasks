@@ -1,27 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
+using Class_Library;
 
-namespace Library1
+namespace Console_application
 {
-    class classLibrary
+    class Program
     {
         static void Main(string[] args)
         {
-
             bool end = false;
+
             Library<Book> lib_book = new Library<Book>();
             Library<Journal> lib_journal = new Library<Journal>();
 
             while (!end)
             {
                 System.Console.WriteLine("\nEnter a command (\"help\" for help)");
-                switch(System.Console.ReadLine())
+                switch (System.Console.ReadLine())
                 {
                     case "-cb":
                         System.Console.WriteLine("\nCreating book");
                         Book book = new Book();
                         lib_book.Add(book);
-                    break;
+                        break;
                     case "-cj":
                         System.Console.WriteLine("\nCreating journal");
                         Journal journal = new Journal();
@@ -126,5 +126,4 @@ namespace Library1
             }
         }
     }
-
 }

@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library
+namespace ClassLibrary
 {
-    class Book : Stuff
+    class ClassLibrary
+    {
+        static void Main(string[] args)
+        {
+
+        }
+    }
+
+    public class Book : Stuff, IStuff
     {
         protected internal string Author;
         protected internal string Genre;
@@ -25,7 +33,7 @@ namespace Library
             iscorrect = false;
 
         }
-        override public void Display()
+        public void Display()
         {
             System.Console.WriteLine($"ID: {Id}");
             System.Console.WriteLine($"Title: {Name}");
@@ -37,7 +45,7 @@ namespace Library
             System.Console.WriteLine("********************************************");
         }
 
-        public override void Change()
+        public void Change()
         {
             string strAnswer;
             System.Console.WriteLine("Enter new title of press enter");

@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Library
+namespace Class_Library
 {
-    abstract class Stuff
+    public abstract class Stuff
     {
         protected internal readonly int Id;
         private static int newId = 0;
-
         protected internal string Name;
         protected internal int Quantity;
         protected internal string Publishing;
@@ -34,8 +33,7 @@ namespace Library
             System.Console.WriteLine("Enter Publishing");
             Publishing = Console.ReadLine();
         }
-        abstract public void Display();
-        abstract public void Change();
+
     }
 
 }
