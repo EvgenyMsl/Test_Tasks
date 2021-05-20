@@ -29,12 +29,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "arr_task6", "arr_task6\arr_
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "arr_task7", "arr_task7\arr_task7.csproj", "{2E1B59D9-A06C-4998-A5B8-AEDBA704DADE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console_application", "Console_application\Console_application.csproj", "{4C194C0E-4BE6-476C-A725-C2B58FB105BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console_application", "Console_application\Console_application.csproj", "{4C194C0E-4BE6-476C-A725-C2B58FB105BA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BB204A96-A4DD-4628-A801-EE469AEDEA72} = {BB204A96-A4DD-4628-A801-EE469AEDEA72}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Class_Library", "Class_Library\Class_Library.csproj", "{BB204A96-A4DD-4628-A801-EE469AEDEA72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Class_Library", "Class_Library\Class_Library.csproj", "{BB204A96-A4DD-4628-A801-EE469AEDEA72}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassChatBot", "ClassChatBot\ClassChatBot.csproj", "{3C7355CA-D048-4FE2-B074-FA408A7C13D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleChatBot", "ConsoleChatBot\ConsoleChatBot.csproj", "{B7C70CE7-8117-42A6-9B41-1E8D3318BD7C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3C7355CA-D048-4FE2-B074-FA408A7C13D2} = {3C7355CA-D048-4FE2-B074-FA408A7C13D2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +109,14 @@ Global
 		{BB204A96-A4DD-4628-A801-EE469AEDEA72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB204A96-A4DD-4628-A801-EE469AEDEA72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB204A96-A4DD-4628-A801-EE469AEDEA72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C7355CA-D048-4FE2-B074-FA408A7C13D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C7355CA-D048-4FE2-B074-FA408A7C13D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C7355CA-D048-4FE2-B074-FA408A7C13D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C7355CA-D048-4FE2-B074-FA408A7C13D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7C70CE7-8117-42A6-9B41-1E8D3318BD7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7C70CE7-8117-42A6-9B41-1E8D3318BD7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7C70CE7-8117-42A6-9B41-1E8D3318BD7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7C70CE7-8117-42A6-9B41-1E8D3318BD7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

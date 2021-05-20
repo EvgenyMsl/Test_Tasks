@@ -12,7 +12,7 @@ namespace Class_Library
         protected internal int Quantity;
         protected internal string Publishing;
 
-        protected bool iscorrect = false;
+        protected bool iscorrect;
 
         protected Stuff()
         {
@@ -20,8 +20,16 @@ namespace Class_Library
             Id = newId;
 
             System.Console.WriteLine("********************************************");
-            System.Console.WriteLine("Enter the title");
-            Name = Console.ReadLine();
+            
+
+            while (!iscorrect)
+            {
+                System.Console.WriteLine("Enter the title");
+                Name = Console.ReadLine();
+                if (Name != "")
+                    iscorrect = true;
+            }
+            iscorrect = false;
 
             while (!iscorrect)
             {

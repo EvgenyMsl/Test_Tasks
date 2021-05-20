@@ -39,15 +39,11 @@ namespace Console_application
                         break;
                     case "-dob":
                         System.Console.WriteLine("\nDeleting one book with definite name:");
-                        lib_book.Find();
-                        lib_book.ChooseOne();
-                        lib_book.DeleteSelection();
+                        lib_book.DeleteOne();
                         break;
                     case "-doj":
                         System.Console.WriteLine("\nDeleting one journal with definite name:");
-                        lib_journal.Find();
-                        lib_journal.ChooseOne();
-                        lib_journal.DeleteSelection();
+                        lib_journal.DeleteOne();
                         break;
                     case "-chb":
                         System.Console.WriteLine("\nChanging book");

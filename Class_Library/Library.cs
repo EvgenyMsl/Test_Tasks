@@ -34,6 +34,13 @@ namespace Class_Library
             thingList.Add(stuff);
         }
 
+        public void DeleteOne()
+        {
+            Find();
+            ChooseOne();
+            selectionThing.Remove(selectionThing[0]);
+        }
+
         public void DeleteSelection()
         {
             selectionThing.Clear();
@@ -112,21 +119,22 @@ namespace Class_Library
 
         public void ViewOne()
         {
-            selectionThing[0].Display();
+            if(selectionThing[0].Name!="")
+                selectionThing[0].Display();
         }
 
         public void ViewSelection()
         {
-            System.Console.WriteLine("********************************************");
+            
             Console.WriteLine($"{typeof(Ttypeofstuff).Name} with choosen name:");
             if (selectionThing.Count != 0)
             {
                 foreach (Ttypeofstuff sb in selectionThing)
-                    sb.Display();
-            }
-            else
-            {
-                Console.WriteLine($"{typeof(Ttypeofstuff).Name} with choosen name: 0");
+                    if (selectionThing[0].Name != "")
+                    {
+                        System.Console.WriteLine("********************************************");
+                        sb.Display();
+                    }
             }
 
         }

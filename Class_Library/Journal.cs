@@ -32,14 +32,17 @@ namespace Class_Library
 
         public void Display()
         {
-            System.Console.WriteLine($"ID: {Id}");
-            System.Console.WriteLine($"Title : {Name}");
-            System.Console.WriteLine($"Quantity: {Quantity}");
-            System.Console.WriteLine($"Publishing: {Publishing}");
-            System.Console.WriteLine($"Periodicity: {Periodicity}");
-            System.Console.WriteLine($"Year of release: {Yearofrelease}");
-            System.Console.WriteLine($"Number: {Number}");
-            System.Console.WriteLine("********************************************");
+            if (Name != "")
+            {
+                System.Console.WriteLine($"ID: {Id}");
+                System.Console.WriteLine($"Title : {Name}");
+                System.Console.WriteLine($"Quantity: {Quantity}");
+                System.Console.WriteLine($"Publishing: {Publishing}");
+                System.Console.WriteLine($"Periodicity: {Periodicity}");
+                System.Console.WriteLine($"Year of release: {Yearofrelease}");
+                System.Console.WriteLine($"Number: {Number}");
+                System.Console.WriteLine("********************************************");
+            }
 
         }
 

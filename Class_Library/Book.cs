@@ -27,14 +27,17 @@ namespace Class_Library
         }
         public void Display()
         {
-            System.Console.WriteLine($"ID: {Id}");
-            System.Console.WriteLine($"Title: {Name}");
-            System.Console.WriteLine($"Quantity: {Quantity}");
-            System.Console.WriteLine($"Publishing {Publishing}");
-            System.Console.WriteLine($"Author: {Author}");
-            System.Console.WriteLine($"Genre: {Genre}");
-            System.Console.WriteLine($"Yearofpublishing: {Yearofpublishing}");
-            System.Console.WriteLine("********************************************");
+            if (Name != "")
+            {
+                System.Console.WriteLine($"ID: {Id}");
+                System.Console.WriteLine($"Title: {Name}");
+                System.Console.WriteLine($"Quantity: {Quantity}");
+                System.Console.WriteLine($"Publishing {Publishing}");
+                System.Console.WriteLine($"Author: {Author}");
+                System.Console.WriteLine($"Genre: {Genre}");
+                System.Console.WriteLine($"Yearofpublishing: {Yearofpublishing}");
+                System.Console.WriteLine("********************************************");
+            }
         }
 
         public void Change()
