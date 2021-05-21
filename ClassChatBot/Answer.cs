@@ -63,10 +63,8 @@ namespace ClassChatBot
             answers.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Буенос диас", type_ans));
             answers.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Гутен таг", type_ans));
             answers.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Здраво", type_ans));
-            answers.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Добры ден", type_ans));
             answers.Add(new Answer(new List<int> { 5, 6 }, "Добрый", type_ans));
             answers.Add(new Answer(new List<int> { 8 }, "Доброй", type_ans));
-            answers.Add(new Answer(new List<int> { 5, 6 }, "Добрый-добрый", type_ans));
             //answers.Add(new Answer(new List<int> { 1, 2, 3 }, "...", type_ans));
             answers.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Аве!", type_ans));
         }

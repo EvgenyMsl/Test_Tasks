@@ -11,19 +11,18 @@ namespace ClassChatBot
         internal string userName = new String("");
         public bool isFinal = false;
         Random randomizer = new Random();
-        List<string> LAnswers = new List<string>();
+        readonly List<string> ListOfAnswers = new List<string>();
 
         //StringBuilder answer = new StringBuilder();
         
         public string TakeAnswer(string asking)
         {
             asking = asking.ToLower();
-            bool bCalling = false;
-            bool bUserName = false;
-            bool bBotName = false;
-            string ans = new string("");
-            foreach (var a in asking.Split(" "))
-                switch (a)
+            string answer_line = new string("");
+
+            ListOfAnswers.Clear();
+            foreach (var word in asking.Split(" "))
+                switch (word)
                 {
                     case "анекдот":
                         {
@@ -50,7 +49,7 @@ namespace ClassChatBot
                         }
                     case "монетку":
                         {
-                            return randomizer.Next(0, 2).ToString();
+                            return (randomizer.Next(0, 6) == 1) ? "Орёл" : "Режка";
                         }
                     case "пока":
                     case "свидания":
@@ -58,43 +57,45 @@ namespace ClassChatBot
                     case "bye":
                         {
                             isFinal = true;
-                            return "до cвидания, " + userName;//END
+                            return "до cвидания, " + userName;
                         }
                     default:
                         {
-                           ans += "хз";
+                           answer_line += "";
                            break;
                         }
                 }
 
-            foreach (Question q in Question.questions)
+
+
+            foreach (Question oneQuestion in Question.questions)
             {
-                if(q.Phrase==asking)
+                if(oneQuestion.Phrase==asking)
                 {
-                    if(q.type_of_question == "ask")
+                    if(oneQuestion.type_of_question == "ask")
                     {
                         foreach (Answer an in Answer.answers)
                         {
                             foreach(int id in an.questionIds)
                             {
-                                if(q.Id==id)
+                                if(oneQuestion.Id==id)
                                 {
-                                    LAnswers.Add(an.Phrase);
+                                    ListOfAnswers.Add(an.Phrase);
                                 }
                             }
                         }
 
-                        var va=TakeRandFromList(LAnswers);
+                        var va=TakeRandFromList(ListOfAnswers);
                         va ??= "NAN";
                         return va;
                     }
                 }
             }
-            ans = TakeRandAnswer("ini");
+            answer_line = TakeRandAnswer("ini");
             string secondpart = TakeRandAnswer("aph");
-            ans += " ";
-            ans += secondpart;
-            return ans;
+            answer_line += " ";
+            answer_line += secondpart;
+            return answer_line;
         }
 
         string TakeRandFromList(List<string> answers)
