@@ -6,7 +6,7 @@ namespace Class_Library
 {
     public interface IStuff
     {
-        abstract public void Display();
-        abstract public void Change();
+        abstract public List<string> Display();
+        abstract public void Change(List<string> a);
     }
 }

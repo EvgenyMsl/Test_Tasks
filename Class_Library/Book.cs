@@ -6,77 +6,41 @@ namespace Class_Library
 {
     public class Book : Stuff, IStuff
     {
-        protected internal string Author;
-        protected internal string Genre;
-        protected internal int Yearofpublishing;
+        protected internal string author;
+        protected internal string genre;
+        protected internal string yearofpublishing;
 
-        public Book()
+        public Book(string title, string quantity, string publishing = "Unknown", string author = "Unknown", string genre = "Unknown", string yearofpublishing="Unknown") : base(title,quantity,publishing)
         {
-            System.Console.WriteLine("Enter an author of book");
-            Author = Console.ReadLine();
-            System.Console.WriteLine("Enter ganre of book");
-            Genre = Console.ReadLine();
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter correct year of publishing");
-                iscorrect = int.TryParse(Console.ReadLine(), out Yearofpublishing);
-            }
-            iscorrect = false;
-
-        }
-        public void Display()
-        {
-            if (Name != "")
-            {
-                System.Console.WriteLine($"ID: {Id}");
-                System.Console.WriteLine($"Title: {Name}");
-                System.Console.WriteLine($"Quantity: {Quantity}");
-                System.Console.WriteLine($"Publishing {Publishing}");
-                System.Console.WriteLine($"Author: {Author}");
-                System.Console.WriteLine($"Genre: {Genre}");
-                System.Console.WriteLine($"Yearofpublishing: {Yearofpublishing}");
-                System.Console.WriteLine("********************************************");
-            }
+            this.author = author;
+            this.genre = genre;
+            this.yearofpublishing = yearofpublishing;
         }
 
-        public void Change()
+        public List<string> Display()
         {
-            string strAnswer;
-            System.Console.WriteLine("Enter new title of press enter");
-            strAnswer = Console.ReadLine();
-            if (strAnswer != "")
-                Name = strAnswer;
-
-            while (!iscorrect)
+            List<string> answer = new List<string>();
+            if (title != "")
             {
-                System.Console.WriteLine("Enter new corrcet quantity of press enter");
-                strAnswer = Console.ReadLine();
-                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Quantity) : true;
+                answer.Add(Id.ToString());
+                answer.Add(title);
+                answer.Add(quantity.ToString());
+                answer.Add(publishing);
+                answer.Add(author);
+                answer.Add(genre);
+                answer.Add(yearofpublishing.ToString());
             }
-            iscorrect = false;
+            return answer;
+        }
 
-            System.Console.WriteLine("Enter new publishing of press enter");
-            strAnswer = Console.ReadLine();
-            if (strAnswer != "")
-                Publishing = strAnswer;
-
-            System.Console.WriteLine("Enter new author of book or press enter");
-            strAnswer = Console.ReadLine();
-            if (strAnswer != "")
-                Author = strAnswer;
-
-            System.Console.WriteLine("Enter new genre of book or press enter");
-            strAnswer = Console.ReadLine();
-            if (strAnswer != "")
-                Genre = strAnswer;
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter new correct year of publishing or press Enter");
-                strAnswer = Console.ReadLine();
-                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Yearofpublishing) : true;
-            }
+        public void Change(List<string> changeInfo)
+        {
+            this.title =            changeInfo[0];
+            this.quantity =         changeInfo[1];
+            this.publishing =       changeInfo[2];
+            this.author =           changeInfo[3];
+            this.genre =            changeInfo[4];
+            this.yearofpublishing = changeInfo[5];
         }
     }
 }

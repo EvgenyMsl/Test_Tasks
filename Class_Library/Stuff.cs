@@ -8,38 +8,19 @@ namespace Class_Library
     {
         protected internal readonly int Id;
         private static int newId = 0;
-        protected internal string Name;
-        protected internal int Quantity;
-        protected internal string Publishing;
+        protected internal string title;
+        protected internal string quantity;
+        protected internal string publishing;
 
         protected bool iscorrect;
 
-        protected Stuff()
+        protected Stuff(string title, string quantity, string publishing="Unknown")
         {
             newId++;
             Id = newId;
-
-            System.Console.WriteLine("********************************************");
-            
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter the title");
-                Name = Console.ReadLine();
-                if (Name != "")
-                    iscorrect = true;
-            }
-            iscorrect = false;
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter correct quantity");
-                iscorrect = int.TryParse(Console.ReadLine(), out Quantity);
-            }
-            iscorrect = false;
-
-            System.Console.WriteLine("Enter Publishing");
-            Publishing = Console.ReadLine();
+            this.title = title;
+            this.quantity = quantity;
+            this.publishing = publishing;
         }
 
     }

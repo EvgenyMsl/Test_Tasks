@@ -6,87 +6,45 @@ namespace Class_Library
 {
     public class Journal : Stuff, IStuff
     {
-        public string Periodicity;
-        public int Yearofrelease;
-        public int Number;
+        public string periodicity;
+        public string yearofrelease;
+        public string number;
 
-        public Journal()
+        public Journal(string title, string quantity, string publishing="unknown", string periodicity="unknown", string yearofrelease=0, string number=0) : base(title,quantity,publishing)
         {
-            System.Console.WriteLine("Enter the publication frequency");
-            Periodicity = Console.ReadLine();
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter the year of publication");
-                iscorrect = int.TryParse(Console.ReadLine(), out Yearofrelease);
-            }
-            iscorrect = false;
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter the release number");
-                iscorrect = int.TryParse(Console.ReadLine(), out Number);
-            }
-            iscorrect = false;
+            this.title = title;
+            this.quantity = quantity;
+            this.publishing = publishing;
+            this.periodicity = periodicity;
+            this.yearofrelease = yearofrelease;
+            this.number = number;
         }
 
-        public void Display()
-        {
-            if (Name != "")
-            {
-                System.Console.WriteLine($"ID: {Id}");
-                System.Console.WriteLine($"Title : {Name}");
-                System.Console.WriteLine($"Quantity: {Quantity}");
-                System.Console.WriteLine($"Publishing: {Publishing}");
-                System.Console.WriteLine($"Periodicity: {Periodicity}");
-                System.Console.WriteLine($"Year of release: {Yearofrelease}");
-                System.Console.WriteLine($"Number: {Number}");
-                System.Console.WriteLine("********************************************");
-            }
 
+        public List<string> Display()
+        {
+            List<String> answer = new List<string>();
+            if (title != "")
+            {
+                answer.Add(Id.ToString());
+                answer.Add(title);
+                answer.Add(quantity.ToString());
+                answer.Add(publishing);
+                answer.Add(periodicity);
+                answer.Add(yearofrelease.ToString());
+                answer.Add(number.ToString());
+            }
+            return answer; 
         }
 
-        public void Change()
+        public void Change(List<string> changeInfo)
         {
-            string strAnswer;
-            System.Console.WriteLine("Enter new title or press Enter");
-            strAnswer = Console.ReadLine();
-            if (strAnswer != "")
-                Name = strAnswer;
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter new correct quantity or press Enter");
-                strAnswer = Console.ReadLine();
-                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Quantity) : true;
-
-            }
-            iscorrect = false;
-
-            System.Console.WriteLine("Enter new publishing or press Enter");
-            strAnswer = Console.ReadLine();
-            if (strAnswer != "")
-                Publishing = strAnswer;
-
-            System.Console.WriteLine("Enter new year of release or press Enter");
-            strAnswer = Console.ReadLine();
-            if (strAnswer != "")
-                Periodicity = strAnswer;
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter new correct year of release by number or press Enter");
-                strAnswer = Console.ReadLine();
-                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Yearofrelease) : true;
-            }
-            iscorrect = false;
-
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter new correct release number or press Enter");
-                strAnswer = Console.ReadLine();
-                iscorrect = (strAnswer != "") ? int.TryParse(strAnswer, out Quantity) : true;
-            }
+            this.title = changeInfo[0];
+            this.quantity = changeInfo[1];
+            this.publishing = changeInfo[2];
+            this.periodicity = changeInfo[3];
+            this.yearofrelease = changeInfo[4];
+            this.number = changeInfo[5];
         }
     }
 }

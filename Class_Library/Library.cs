@@ -6,6 +6,7 @@ namespace Class_Library
 {
     public class Library<Ttypeofstuff> where Ttypeofstuff : Stuff, IStuff
     {
+        List<string> info = new List<string>();
         private List<Ttypeofstuff> thingList = new List<Ttypeofstuff>();
         private List<Ttypeofstuff> selectionThing = new List<Ttypeofstuff>();
 
@@ -34,126 +35,92 @@ namespace Class_Library
             thingList.Add(stuff);
         }
 
-        public void DeleteOne()
-        {
-            Find();
-            ChooseOne();
-            selectionThing.Remove(selectionThing[0]);
-        }
 
         public void DeleteSelection()
         {
             selectionThing.Clear();
         }
 
-        public void DeleteAll()
+        public bool DeleteAll()
         {
             thingList.Clear();
-            System.Console.WriteLine($"{typeof(Ttypeofstuff).Name} is deleted");
+            return true;
         }
 
 
-        public void Find()
+        public void Find(string title)
         {
             DeleteSelection();
-            System.Console.WriteLine("Enter searching name");
-            string name = System.Console.ReadLine();
 
             foreach (Ttypeofstuff bl in thingList)
-                if (bl.Name == name)
+                if (bl.title == title)
                     selectionThing.Add(bl);
             ViewSelection();
         }
 
-        public void Change()
+        public bool Change(List<string> changeInfo)
         {
-            if (selectionThing.Count > 1)
+            if (selectionThing.Count != 0)
             {
-                ChooseOne();
-                Change();
+                selectionThing[0].Change(changeInfo);
+                selectionThing.Clear();
+                return true;
             }
             else
-            {
-                if (selectionThing.Count != 0)
-                {
-                    selectionThing[0].Change();
-                    selectionThing.Clear();
-                }
-                else
-                {
-                    System.Console.WriteLine("This item is missing. Try again? y/n");
-                    var answer = System.Console.ReadLine();
-                    if (answer == "y")
-                    {
-                        Find();
-                    }
-                }
-            }
+                return false;
         }
 
-        public void ChooseOne()
+        public void DeleteOne(int id)
         {
-            int id = -1;
-            bool iscorrect = false;
+            ChooseOne(id);
+            thingList.Remove(selectionThing[0]);
+        }
 
-            while (!iscorrect)
-            {
-                System.Console.WriteLine("Enter correct id");
-                iscorrect = int.TryParse(Console.ReadLine(), out id);
-                System.Console.WriteLine("ID: " + id);
-            }
-            iscorrect = false;
-
+        public List<string> ChooseOne(int id)
+        {
             foreach (Ttypeofstuff b in thingList)
             {
                 if (id == b.Id)
                 {
                     DeleteSelection();
                     selectionThing.Add(b);
-                    System.Console.WriteLine("********************************************");
-                    b.Display();
-                    break;
+                    return b.Display();
                 }
             }
+            return null;
         }
 
-        public void ViewOne()
+        public List<string> ViewOne()
         {
-            if(selectionThing[0].Name!="")
-                selectionThing[0].Display();
+            if (selectionThing[0].title != "")
+                return selectionThing[0].Display();
+            else 
+                return null;
         }
 
-        public void ViewSelection()
+        public List<Ttypeofstuff> ViewSelection()
         {
-            
-            Console.WriteLine($"{typeof(Ttypeofstuff).Name} with choosen name:");
+            List<Ttypeofstuff> listOfAnswers = new List<Ttypeofstuff>();
             if (selectionThing.Count != 0)
-            {
                 foreach (Ttypeofstuff sb in selectionThing)
-                    if (selectionThing[0].Name != "")
-                    {
-                        System.Console.WriteLine("********************************************");
-                        sb.Display();
-                    }
-            }
+                    if (selectionThing[0].title != "")
+                        listOfAnswers.Add(sb);
+            return listOfAnswers;
 
         }
 
-        public void ViewAll()
+        public bool ViewAll(List<List<String>> answer)
         {
-            System.Console.WriteLine("********************************************");
             if (thingList.Count != 0)
             {
                 foreach (Ttypeofstuff sb in thingList)
                 {
-                    sb.Display();
+                    answer.Add(sb.Display());
                 }
+                return true;
             }
             else
-            {
-                System.Console.WriteLine("Empty");
-                System.Console.WriteLine("********************************************");
-            }
+                return false;
         }
     }
 }
