@@ -16,14 +16,7 @@ namespace Console_application
 
             List<String> outList = new List<string>();
             List<List<String>> outLists = new List<List<String>>();
-            List<String> changeInfo = new List<String>();
-
-            string title = "";
-            string quantity = "";
-            string publishing = "";
-            string author = "";
-            string genre = "";
-            string yearofpublishing = "";
+            String[] changeInfo = new String[6];
 
             while (!end)
             {
@@ -70,45 +63,50 @@ namespace Console_application
                     case "-chb":
                         System.Console.WriteLine("\nChanging book");
                         lib_book.Find(System.Console.ReadLine());
-                        
-                        title =            Console.ReadLine();
-                        quantity =         Console.ReadLine();
-                        publishing =       Console.ReadLine();
-                        author =           Console.ReadLine();
-                        genre =            Console.ReadLine();
-                        yearofpublishing = Console.ReadLine();
-
-                        changeInfo.Add(title);
-                        changeInfo.Add(quantity);
-                        changeInfo.Add(publishing);
-                        changeInfo.Add(author);
-                        changeInfo.Add(genre);
-                        changeInfo.Add(yearofpublishing);
-                        lib_book.Change(changeInfo);
-
                         outList = lib_book.ViewOne();
+
+                        if (outList != null)
+                        {
+                            System.Console.WriteLine("title");
+                            changeInfo[0] = Console.ReadLine();
+                            System.Console.WriteLine("quantity");
+                            changeInfo[0] = Console.ReadLine();
+                            System.Console.WriteLine("publishing");
+                            changeInfo[0] = Console.ReadLine();
+                            System.Console.WriteLine("author");
+                            changeInfo[0] = Console.ReadLine();
+                            System.Console.WriteLine("genre");
+                            changeInfo[0] = Console.ReadLine();
+                            System.Console.WriteLine("yearofpublishing");
+                            changeInfo[0] = Console.ReadLine();
+                            lib_book.Change(changeInfo);
+                            outList = lib_book.ViewOne();
+                        }
+                        
                         break;
 
                     case "-chj":
                         System.Console.WriteLine("\nChanging journal");
                         lib_journal.Find(System.Console.ReadLine());
-                        
-                        title = Console.ReadLine();
-                        quantity = Console.ReadLine();
-                        publishing = Console.ReadLine();
-                        author = Console.ReadLine();
-                        genre = Console.ReadLine();
-                        yearofpublishing = Console.ReadLine();
-
-                        changeInfo.Add(title);
-                        changeInfo.Add(quantity);
-                        changeInfo.Add(publishing);
-                        changeInfo.Add(author);
-                        changeInfo.Add(genre);
-                        changeInfo.Add(yearofpublishing);
-                        lib_book.Change(changeInfo);
-
                         outList = lib_journal.ViewOne();
+
+                        if (outList.Count != 0)
+                        {
+                            System.Console.WriteLine("title");
+                            changeInfo[0] = Console.ReadLine();
+                            System.Console.WriteLine("quantity");
+                            changeInfo[1] = Console.ReadLine();
+                            System.Console.WriteLine("publishing");
+                            changeInfo[2] = Console.ReadLine();
+                            System.Console.WriteLine("periodicity");
+                            changeInfo[3] = Console.ReadLine();
+                            System.Console.WriteLine("yearofrelease");
+                            changeInfo[4] = Console.ReadLine();
+                            System.Console.WriteLine("number");
+                            changeInfo[5] = Console.ReadLine();
+                            lib_book.Change(changeInfo);
+                            outList = lib_journal.ViewOne();
+                        }
                         break;
 
                     case "-fb":
@@ -187,53 +185,44 @@ namespace Console_application
                         break;
                 }
 
-                /*////////////////////////////////////////
-                
-                System.Console.WriteLine("\nCreating book");
-                Book book = new Book("Война и мир", 10);
-                lib_book.Add(book);
-
-                System.Console.WriteLine("\nCreating book");
-                book = new Book("Библия", 10);
-                lib_book.Add(book);
-
-                System.Console.WriteLine("\nCreating book");
-                book = new Book("Библия", 10);
-                lib_book.Add(book);
-
-                lib_book.Find("Библия");
-                outList=lib_book.ViewOne();
-                lib_book.ViewAll(outLists);
-
-                lib_book.DeleteOne(3);
-                lib_book.ViewAll(outLists);
-
-                */////////////////////////////////////////
-
-                Console.WriteLine("*******************************************"); 
-                
-                for (int i = 0; i < outList.Count; i++)
-                {
-                    Console.WriteLine(outList[i]);
-                }
- 
                 Console.WriteLine("*******************************************");
-   
-                foreach (List<string> oL in outLists)
+                if (outList != null)
                 {
-                    Console.WriteLine(oL[0]);
-                    Console.WriteLine(oL[1]);
-                    Console.WriteLine(oL[2]);
-                    Console.WriteLine(oL[3]);
-                    Console.WriteLine(oL[4]);
-                    Console.WriteLine(oL[5]);
-                    Console.WriteLine(oL[6]);
+                    for (int i = 0; i < outList.Count; i++)
+                    {
+                        Console.WriteLine(outList[i]);
+                    }
+                    outList.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("NULL");
+                }
+
+                Console.WriteLine("*******************************************");
+                if (outLists != null)
+                {
+                    foreach (List<string> oL in outLists)
+                    {
+                        Console.WriteLine(oL[0]);
+                        Console.WriteLine(oL[1]);
+                        Console.WriteLine(oL[2]);
+                        Console.WriteLine(oL[3]);
+                        Console.WriteLine(oL[4]);
+                        Console.WriteLine(oL[5]);
+                        Console.WriteLine(oL[6]);
+                    }
+                    outLists.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("NULL");
                 }
 
                 Console.WriteLine("*******************************************");
 
-                outList.Clear();
-                outLists.Clear();
+                
+                
             }
         }
     }

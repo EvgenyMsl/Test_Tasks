@@ -20,12 +20,12 @@ namespace Class_Library
             }
         }
 
-        void Loadtodatabase()
+        void LoadToDatabase()
         {
 
         }
 
-        void Uploadtodatabase()
+        void UploadToDatabase()
         {
 
         }
@@ -51,14 +51,13 @@ namespace Class_Library
         public void Find(string title)
         {
             DeleteSelection();
-
             foreach (Ttypeofstuff bl in thingList)
                 if (bl.title == title)
                     selectionThing.Add(bl);
             ViewSelection();
         }
 
-        public bool Change(List<string> changeInfo)
+        public bool Change(string[] changeInfo)
         {
             if (selectionThing.Count != 0)
             {
@@ -92,10 +91,14 @@ namespace Class_Library
 
         public List<string> ViewOne()
         {
-            if (selectionThing[0].title != "")
-                return selectionThing[0].Display();
-            else 
-                return null;
+            if (selectionThing.Count != 0)
+            {
+                if (selectionThing[0].title != "")
+                    return selectionThing[0].Display();
+                else
+                    return null;
+            }
+            return null;
         }
 
         public List<Ttypeofstuff> ViewSelection()

@@ -7,6 +7,6 @@ namespace Class_Library
     public interface IStuff
     {
         abstract public List<string> Display();
-        abstract public void Change(List<string> a);
+        abstract public void Change(string[] info);
     }
 }

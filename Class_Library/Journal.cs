@@ -10,7 +10,7 @@ namespace Class_Library
         public string yearofrelease;
         public string number;
 
-        public Journal(string title, string quantity, string publishing="unknown", string periodicity="unknown", string yearofrelease=0, string number=0) : base(title,quantity,publishing)
+        public Journal(string title, string quantity, string publishing="unknown", string periodicity="unknown", string yearofrelease = "unknown", string number = "unknown") : base(title,quantity,publishing)
         {
             this.title = title;
             this.quantity = quantity;
@@ -37,7 +37,7 @@ namespace Class_Library
             return answer; 
         }
 
-        public void Change(List<string> changeInfo)
+        public void Change(string[] changeInfo)
         {
             this.title = changeInfo[0];
             this.quantity = changeInfo[1];

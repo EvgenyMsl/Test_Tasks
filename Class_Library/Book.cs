@@ -33,7 +33,7 @@ namespace Class_Library
             return answer;
         }
 
-        public void Change(List<string> changeInfo)
+        public void Change(string[] changeInfo)
         {
             this.title =            changeInfo[0];
             this.quantity =         changeInfo[1];
