@@ -4,66 +4,66 @@ using System.Text;
 
 namespace Class_Library
 {
-    public class Library<Tstuff> where Tstuff : Stuff
+    public class Library<TStuff> where TStuff : Stuff
     {
 
-        private readonly List<Tstuff> stuffList = new List<Tstuff>();
-        private readonly List<Tstuff> selectionStuff = new List<Tstuff>();
+        private readonly List<TStuff> m_stuffList = new List<TStuff>();
+        private readonly List<TStuff> m_selectionStuff = new List<TStuff>();
 
-        private readonly string dataBasePath = "\\";
+        private readonly string m_dataBasePath = "\\";
 
         public string DataBasePath
         {
             get
             {
-                return dataBasePath;
+                return m_dataBasePath;
             }
         }
 
-        public void Add(Tstuff stuff)
+        public void Add(TStuff stuff)
         {
-            stuffList.Add(stuff);
+            m_stuffList.Add(stuff);
         }
 
         public bool DeleteAll()
         {
-            stuffList.Clear();
+            m_stuffList.Clear();
             return true;
         }
 
-        public List<Tstuff> FindByName(string title)
+        public List<TStuff> FindByName(string title)
         {
-            selectionStuff.Clear();
-            foreach (Tstuff thing in stuffList)
-                if (thing.title == title)
-                    selectionStuff.Add(thing);
-            return selectionStuff.Count!=0 ? selectionStuff : null;
+            m_selectionStuff.Clear();
+            foreach (TStuff thing in m_stuffList)
+                if (thing.Title == title)
+                    m_selectionStuff.Add(thing);
+            return m_selectionStuff.Count!=0 ? m_selectionStuff : null;
         }
 
         public void DeleteOne(int id)
         {
-            stuffList.Remove(FindOne(id));
+            m_stuffList.Remove(FindOne(id));
         }
 
-        public Tstuff FindOne(int id)
+        public TStuff FindOne(int id)
         {
-            foreach (Tstuff thing in stuffList)
+            foreach (TStuff thing in m_stuffList)
             {
                 if (id == thing.Id)
                 {
-                    selectionStuff.Clear();
+                    m_selectionStuff.Clear();
                     return thing;
                 }
             }
             return null;
         }
 
-        public List<Tstuff> ViewAll()
+        public List<TStuff> ViewAll()
         {
-            List<Tstuff> answer = new List<Tstuff>();
-            if (stuffList.Count != 0)
+            List<TStuff> answer = new List<TStuff>();
+            if (m_stuffList.Count != 0)
             {
-                foreach (Tstuff thing in stuffList)
+                foreach (TStuff thing in m_stuffList)
                 {
                     answer.Add(thing);
                 }

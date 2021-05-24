@@ -10,10 +10,9 @@ namespace Console_application
         static void Main(string[] args)
         {
             bool end = false;
-            bool viewCommand=false;
 
-            Library<Book> lib_book = new Library<Book>();
-            Library<Journal> lib_journal = new Library<Journal>();
+            Library<Book> libBooks = new Library<Book>();
+            Library<Journal> libJournals = new Library<Journal>();
             List<Book> selectedBooks = new List<Book>();
             List<Journal> selectedJournals = new List<Journal>();
             
@@ -42,7 +41,7 @@ namespace Console_application
                         publishing = System.Console.ReadLine();
 
                         Book book = new Book(title,quantity,publishing);
-                        lib_book.Add(book);
+                        libBooks.Add(book);
                         break;
 
                     case "-cj":
@@ -55,24 +54,24 @@ namespace Console_application
                         System.Console.WriteLine("publishing");
                         publishing = System.Console.ReadLine();
                         Journal journal = new Journal(title, quantity, publishing);
-                        lib_journal.Add(journal);
+                        libJournals.Add(journal);
                         break;
 
                     case "-dob":
                         System.Console.WriteLine("\nDeleting one book with definite name:");
                         int.TryParse(System.Console.ReadLine(), out id);
-                        lib_book.DeleteOne(id);
+                        libBooks.DeleteOne(id);
                         break;
 
                     case "-doj":
                         System.Console.WriteLine("\nDeleting one journal with definite name:");
                         int.TryParse(System.Console.ReadLine(), out id);
-                        lib_journal.DeleteOne(id);
+                        libJournals.DeleteOne(id);
                         break;
 
                     case "-chb":
                         System.Console.WriteLine("\nChanging book");
-                        selectedBooks.Add(lib_book.FindOne(int.Parse(System.Console.ReadLine())));
+                        selectedBooks.Add(libBooks.FindOne(int.Parse(System.Console.ReadLine())));
 
                             System.Console.WriteLine("title");
                             selectedBooks[0].Title = Console.ReadLine();
@@ -97,7 +96,7 @@ namespace Console_application
 
                     case "-chj":
                         System.Console.WriteLine("\nChanging journal.");
-                        selectedJournals.Add(lib_journal.FindOne(int.Parse(System.Console.ReadLine())));
+                        selectedJournals.Add(libJournals.FindOne(int.Parse(System.Console.ReadLine())));
 
                             System.Console.WriteLine("title");
                             selectedJournals[0].Title = Console.ReadLine();
@@ -122,45 +121,44 @@ namespace Console_application
 
                     case "-fb":
                         System.Console.WriteLine("\nFinding book");
-                        selectedBooks = lib_book.FindByName(System.Console.ReadLine());
+                        selectedBooks = libBooks.FindByName(System.Console.ReadLine());
                         break;
 
                     case "-fj":
                         System.Console.WriteLine("\nFinding journal");
-                        selectedJournals=lib_journal.FindByName(System.Console.ReadLine());
+                        selectedJournals=libJournals.FindByName(System.Console.ReadLine());
                         break;
 
                     case "-wb":
                         System.Console.WriteLine("\nWiew all books");
-                        selectedBooks=lib_book.ViewAll();
+                        selectedBooks=libBooks.ViewAll();
                         break;
 
                     case "-wj":
                         System.Console.WriteLine("\nWiew all journals");
-                        selectedJournals=lib_journal.ViewAll();
+                        selectedJournals=libJournals.ViewAll();
                         break;
 
                     case "-wob":
                         System.Console.WriteLine("\nWiew one book");
                         int.TryParse(System.Console.ReadLine(), out id);
-                        selectedBooks.Add(lib_book.FindOne(id));
+                        selectedBooks.Add(libBooks.FindOne(id));
                         break;
 
                     case "-woj":
                         System.Console.WriteLine("\nWiew one journal");
                         int.TryParse(System.Console.ReadLine(), out id);
-                        selectedJournals.Add(lib_journal.FindOne(id));
+                        selectedJournals.Add(libJournals.FindOne(id));
                         break;
 
                     case "-dab":
-                        viewCommand = true;
                         System.Console.WriteLine("\nDeleting all books");
-                        lib_book.DeleteAll();
+                        libBooks.DeleteAll();
                         break;
 
                     case "-daj":
                         System.Console.WriteLine("\nDeleting all journals");
-                        lib_journal.DeleteAll();
+                        libJournals.DeleteAll();
                         break;
 
                     case "-help":

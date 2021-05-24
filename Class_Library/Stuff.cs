@@ -7,36 +7,21 @@ namespace Class_Library
     public abstract class Stuff
     {
         protected internal readonly int Id;
-        private static int newID = 0;
-        protected internal string title;
-        protected internal int quantity;
-        protected internal string publishing;
+        private static int m_newID = 0;
 
-        public string Title
-        {
-            set { title = value; }
-            get { return title; }
-        }
-        public int Quantity
-        {
-            set { quantity = value; }
-            get { return quantity; }
-        }
-        public string Publishing
-        {
-            set { publishing = value; }
-            get { return publishing; }
-        }
+        public string Title { set; get; }
+        public int Quantity { set; get; }
+        public string Publishing { set; get; }
 
         protected bool isCorrect;
 
         protected Stuff(string title, int quantity, string publishing)
         {
-            newID++;
-            Id = newID;
-            this.title = title;
-            this.quantity = quantity;
-            this.publishing = publishing;
+            m_newID++;
+            Id = m_newID;
+            Title = title;
+            Quantity = quantity;
+            Publishing = publishing;
         }
 
         private protected Stuff()

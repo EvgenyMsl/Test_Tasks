@@ -6,39 +6,19 @@ namespace Class_Library
 {
     public class Journal : Stuff
     {
-        private string periodicity;
-        private int yearofrelease;
-        private int number;
 
-        public string Periodicity
-        {
-            set { periodicity = value; }
-            get { return periodicity; }
-        }
-        public int Yearofrelease
-        {
-            set { yearofrelease = value;}
-            get { return yearofrelease; }
-        }
-        public int Number 
-        {
-            set { number = value; }
-            get { return number; }
-        }
+        public string Periodicity { set; get; }
+        public int Yearofrelease { set; get; }
+        public int Number { set; get; }
 
         public Journal(string title, int quantity,string publishing, string periodicity = "Unknown", int yearofrelease=0, int number=0) : base(title,quantity,publishing)
         {
-            this.title = title;
-            this.quantity = quantity;
-            this.publishing = publishing;
-            this.periodicity = periodicity;
-            this.yearofrelease = yearofrelease;
-            this.number = number;
-        }
-
-        public Journal(string title) : base()
-        {
-            this.title = title;
+            Title = title;
+            Quantity = quantity;
+            Publishing = publishing;
+            Periodicity = periodicity;
+            Yearofrelease = yearofrelease;
+            Number = number;
         }
 
         private Journal() : base()//запретим пользоваться конструктором по умолчанию
