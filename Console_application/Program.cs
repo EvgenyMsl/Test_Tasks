@@ -10,42 +10,52 @@ namespace Console_application
         static void Main(string[] args)
         {
             bool end = false;
+            bool viewCommand=false;
 
             Library<Book> lib_book = new Library<Book>();
             Library<Journal> lib_journal = new Library<Journal>();
+            List<Book> selectedBooks = new List<Book>();
+            List<Journal> selectedJournals = new List<Journal>();
+            
+            List<Book> outLists = new List<Book>();
 
-            List<String> outList = new List<string>();
-            List<List<String>> outLists = new List<List<String>>();
-            String[] changeInfo = new String[6];
+            int intBuff;
+
+            string title;
+            int quantity;
+            string publishing;
 
             while (!end)
             {
-                int id=-1;
+                int id =- 1;
                 System.Console.WriteLine("\nEnter a command (\"help\" for help)");
                 switch (System.Console.ReadLine())
                 {
                     case "-cb":
                         System.Console.WriteLine("\nCreating book");
-                        Book book = new Book(System.Console.ReadLine(), "10");
+                        System.Console.WriteLine("title");
+                        title = System.Console.ReadLine();
+                        System.Console.WriteLine("quantity");
+                        int.TryParse(Console.ReadLine(), out intBuff);
+                        quantity = intBuff;
+                        System.Console.WriteLine("publishing");
+                        publishing = System.Console.ReadLine();
+
+                        Book book = new Book(title,quantity,publishing);
                         lib_book.Add(book);
                         break;
 
                     case "-cj":
                         System.Console.WriteLine("\nCreating journal");
-                        Journal journal = new Journal(System.Console.ReadLine(), "1");
+                        System.Console.WriteLine("title");
+                        title = System.Console.ReadLine();
+                        System.Console.WriteLine("quantity");
+                        int.TryParse(Console.ReadLine(), out intBuff);
+                        quantity = intBuff;
+                        System.Console.WriteLine("publishing");
+                        publishing = System.Console.ReadLine();
+                        Journal journal = new Journal(title, quantity, publishing);
                         lib_journal.Add(journal);
-                        break;
-
-                    case "-dbs":
-                        System.Console.WriteLine("\nDeletimg all books with definite name");
-                        lib_book.Find(System.Console.ReadLine());
-                        lib_book.DeleteSelection();
-                        break;
-
-                    case "-djs":
-                        System.Console.WriteLine("\nDeleting all journals with definite name");
-                        lib_journal.Find(System.Console.ReadLine());
-                        lib_journal.DeleteSelection();
                         break;
 
                     case "-dob":
@@ -62,92 +72,88 @@ namespace Console_application
 
                     case "-chb":
                         System.Console.WriteLine("\nChanging book");
-                        lib_book.Find(System.Console.ReadLine());
-                        outList = lib_book.ViewOne();
+                        selectedBooks.Add(lib_book.FindOne(int.Parse(System.Console.ReadLine())));
 
-                        if (outList != null)
-                        {
                             System.Console.WriteLine("title");
-                            changeInfo[0] = Console.ReadLine();
+                            selectedBooks[0].Title = Console.ReadLine();
+
                             System.Console.WriteLine("quantity");
-                            changeInfo[0] = Console.ReadLine();
+                            int.TryParse(Console.ReadLine(), out intBuff);
+                            selectedBooks[0].Quantity = intBuff;
+
                             System.Console.WriteLine("publishing");
-                            changeInfo[0] = Console.ReadLine();
+                            selectedBooks[0].Publishing = Console.ReadLine();
+
                             System.Console.WriteLine("author");
-                            changeInfo[0] = Console.ReadLine();
-                            System.Console.WriteLine("genre");
-                            changeInfo[0] = Console.ReadLine();
+                            selectedBooks[0].Author = Console.ReadLine();
+
                             System.Console.WriteLine("yearofpublishing");
-                            changeInfo[0] = Console.ReadLine();
-                            lib_book.Change(changeInfo);
-                            outList = lib_book.ViewOne();
-                        }
-                        
+                            int.TryParse(Console.ReadLine(), out intBuff);
+                            selectedBooks[0].YearOfPublishing = intBuff;
+
+                            System.Console.WriteLine("genre");
+                            selectedBooks[0].Genre = Console.ReadLine();
                         break;
 
                     case "-chj":
-                        System.Console.WriteLine("\nChanging journal");
-                        lib_journal.Find(System.Console.ReadLine());
-                        outList = lib_journal.ViewOne();
+                        System.Console.WriteLine("\nChanging journal.");
+                        selectedJournals.Add(lib_journal.FindOne(int.Parse(System.Console.ReadLine())));
 
-                        if (outList.Count != 0)
-                        {
                             System.Console.WriteLine("title");
-                            changeInfo[0] = Console.ReadLine();
+                            selectedJournals[0].Title = Console.ReadLine();
+
                             System.Console.WriteLine("quantity");
-                            changeInfo[1] = Console.ReadLine();
+                            int.TryParse(Console.ReadLine(), out intBuff);
+                            selectedJournals[0].Quantity = intBuff;
+
                             System.Console.WriteLine("publishing");
-                            changeInfo[2] = Console.ReadLine();
+                            selectedJournals[0].Publishing = Console.ReadLine();
+
                             System.Console.WriteLine("periodicity");
-                            changeInfo[3] = Console.ReadLine();
+                            selectedJournals[0].Periodicity = Console.ReadLine();
+
                             System.Console.WriteLine("yearofrelease");
-                            changeInfo[4] = Console.ReadLine();
+                            int.TryParse(Console.ReadLine(), out intBuff);
+                            selectedJournals[0].Yearofrelease = intBuff; 
+
                             System.Console.WriteLine("number");
-                            changeInfo[5] = Console.ReadLine();
-                            lib_book.Change(changeInfo);
-                            outList = lib_journal.ViewOne();
-                        }
+                            selectedJournals[0].Number = int.Parse(Console.ReadLine());
                         break;
 
                     case "-fb":
                         System.Console.WriteLine("\nFinding book");
-                        lib_book.Find(System.Console.ReadLine());
-                        outList=lib_book.ViewOne();
+                        selectedBooks = lib_book.FindByName(System.Console.ReadLine());
                         break;
 
                     case "-fj":
                         System.Console.WriteLine("\nFinding journal");
-                        lib_journal.Find(System.Console.ReadLine());
-                        outList = lib_journal.ViewOne();
+                        selectedJournals=lib_journal.FindByName(System.Console.ReadLine());
                         break;
 
                     case "-wb":
                         System.Console.WriteLine("\nWiew all books");
-                        lib_book.ViewAll(outLists);
+                        selectedBooks=lib_book.ViewAll();
                         break;
 
                     case "-wj":
                         System.Console.WriteLine("\nWiew all journals");
-                        lib_journal.ViewAll(outLists);
+                        selectedJournals=lib_journal.ViewAll();
                         break;
 
                     case "-wob":
                         System.Console.WriteLine("\nWiew one book");
-                        lib_book.Find(System.Console.ReadLine());
                         int.TryParse(System.Console.ReadLine(), out id);
-                        lib_book.ChooseOne(id);
-                        lib_book.ViewOne();
+                        selectedBooks.Add(lib_book.FindOne(id));
                         break;
 
                     case "-woj":
                         System.Console.WriteLine("\nWiew one journal");
-                        lib_journal.Find(System.Console.ReadLine());
                         int.TryParse(System.Console.ReadLine(), out id);
-                        lib_journal.ChooseOne(id);
-                        lib_journal.ViewOne();
+                        selectedJournals.Add(lib_journal.FindOne(id));
                         break;
 
                     case "-dab":
+                        viewCommand = true;
                         System.Console.WriteLine("\nDeleting all books");
                         lib_book.DeleteAll();
                         break;
@@ -158,7 +164,6 @@ namespace Console_application
                         break;
 
                     case "-help":
-
                         System.Console.WriteLine("\nCreate book \"-cb\"");
                         System.Console.WriteLine("Create journal \"-cj\"");
                         System.Console.WriteLine("Delete one book with definite name \"-dob\"");
@@ -185,42 +190,45 @@ namespace Console_application
                         break;
                 }
 
-                Console.WriteLine("*******************************************");
-                if (outList != null)
+                if (selectedBooks.Count != 0)
                 {
-                    for (int i = 0; i < outList.Count; i++)
+                    foreach (Book selectedBook in selectedBooks)
                     {
-                        Console.WriteLine(outList[i]);
+                        if (selectedBook != null)
+                        {
+                            Console.WriteLine("*******************************************");
+                            Console.WriteLine("Title " + selectedBook.Title);
+                            Console.WriteLine("Quantity " + selectedBook.Quantity);
+                            Console.WriteLine("Publishing " + selectedBook.Publishing);
+                            Console.WriteLine("Author " + selectedBook.Author);
+                            Console.WriteLine("Genre " + selectedBook.Genre);
+                            Console.WriteLine("YearOfPublishing " + selectedBook.YearOfPublishing);
+                        }
                     }
-                    outList.Clear();
-                }
-                else
-                {
-                    Console.WriteLine("NULL");
                 }
 
-                Console.WriteLine("*******************************************");
-                if (outLists != null)
+                
+                if (selectedJournals.Count != 0)
                 {
-                    foreach (List<string> oL in outLists)
+                    foreach (Journal selectedJournal in selectedJournals)
                     {
-                        Console.WriteLine(oL[0]);
-                        Console.WriteLine(oL[1]);
-                        Console.WriteLine(oL[2]);
-                        Console.WriteLine(oL[3]);
-                        Console.WriteLine(oL[4]);
-                        Console.WriteLine(oL[5]);
-                        Console.WriteLine(oL[6]);
+                        if (selectedJournal != null)
+                        {
+                            Console.WriteLine("*******************************************");
+                            Console.WriteLine("Title" + selectedJournal.Title);
+                            Console.WriteLine("Quantity" + selectedJournal.Quantity);
+                            Console.WriteLine("Publishing" + selectedJournal.Publishing);
+                            Console.WriteLine("Periodicity" + selectedJournal.Periodicity);
+                            Console.WriteLine("Yearofrelease" + selectedJournal.Yearofrelease);
+                            Console.WriteLine("Number" + selectedJournal.Number);
+                        }
                     }
-                    outLists.Clear();
-                }
-                else
-                {
-                    Console.WriteLine("NULL");
                 }
 
-                Console.WriteLine("*******************************************");
+                selectedBooks.Clear();
+                selectedJournals.Clear();
 
+                
                 
                 
             }

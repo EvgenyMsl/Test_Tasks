@@ -4,13 +4,29 @@ using System.Text;
 
 namespace Class_Library
 {
-    public class Journal : Stuff, IStuff
+    public class Journal : Stuff
     {
-        public string periodicity;
-        public string yearofrelease;
-        public string number;
+        private string periodicity;
+        private int yearofrelease;
+        private int number;
 
-        public Journal(string title, string quantity, string publishing="unknown", string periodicity="unknown", string yearofrelease = "unknown", string number = "unknown") : base(title,quantity,publishing)
+        public string Periodicity
+        {
+            set { periodicity = value; }
+            get { return periodicity; }
+        }
+        public int Yearofrelease
+        {
+            set { yearofrelease = value;}
+            get { return yearofrelease; }
+        }
+        public int Number 
+        {
+            set { number = value; }
+            get { return number; }
+        }
+
+        public Journal(string title, int quantity,string publishing, string periodicity = "Unknown", int yearofrelease=0, int number=0) : base(title,quantity,publishing)
         {
             this.title = title;
             this.quantity = quantity;
@@ -20,31 +36,16 @@ namespace Class_Library
             this.number = number;
         }
 
-
-        public List<string> Display()
+        public Journal(string title) : base()
         {
-            List<String> answer = new List<string>();
-            if (title != "")
-            {
-                answer.Add(Id.ToString());
-                answer.Add(title);
-                answer.Add(quantity.ToString());
-                answer.Add(publishing);
-                answer.Add(periodicity);
-                answer.Add(yearofrelease.ToString());
-                answer.Add(number.ToString());
-            }
-            return answer; 
+            this.title = title;
         }
 
-        public void Change(string[] changeInfo)
+        private Journal() : base()//запретим пользоваться конструктором по умолчанию
         {
-            this.title = changeInfo[0];
-            this.quantity = changeInfo[1];
-            this.publishing = changeInfo[2];
-            this.periodicity = changeInfo[3];
-            this.yearofrelease = changeInfo[4];
-            this.number = changeInfo[5];
+
         }
+
+
     }
 }

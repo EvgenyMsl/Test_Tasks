@@ -4,126 +4,73 @@ using System.Text;
 
 namespace Class_Library
 {
-    public class Library<Ttypeofstuff> where Ttypeofstuff : Stuff, IStuff
+    public class Library<Tstuff> where Tstuff : Stuff
     {
-        List<string> info = new List<string>();
-        private List<Ttypeofstuff> thingList = new List<Ttypeofstuff>();
-        private List<Ttypeofstuff> selectionThing = new List<Ttypeofstuff>();
 
-        private readonly string databasepath = "\\";
+        private readonly List<Tstuff> stuffList = new List<Tstuff>();
+        private readonly List<Tstuff> selectionStuff = new List<Tstuff>();
 
-        public string Databasepath
+        private readonly string dataBasePath = "\\";
+
+        public string DataBasePath
         {
             get
             {
-                return databasepath;
+                return dataBasePath;
             }
         }
 
-        void LoadToDatabase()
+        public void Add(Tstuff stuff)
         {
-
-        }
-
-        void UploadToDatabase()
-        {
-
-        }
-
-        public void Add(Ttypeofstuff stuff)
-        {
-            thingList.Add(stuff);
-        }
-
-
-        public void DeleteSelection()
-        {
-            selectionThing.Clear();
+            stuffList.Add(stuff);
         }
 
         public bool DeleteAll()
         {
-            thingList.Clear();
+            stuffList.Clear();
             return true;
         }
 
-
-        public void Find(string title)
+        public List<Tstuff> FindByName(string title)
         {
-            DeleteSelection();
-            foreach (Ttypeofstuff bl in thingList)
-                if (bl.title == title)
-                    selectionThing.Add(bl);
-            ViewSelection();
-        }
-
-        public bool Change(string[] changeInfo)
-        {
-            if (selectionThing.Count != 0)
-            {
-                selectionThing[0].Change(changeInfo);
-                selectionThing.Clear();
-                return true;
-            }
-            else
-                return false;
+            selectionStuff.Clear();
+            foreach (Tstuff thing in stuffList)
+                if (thing.title == title)
+                    selectionStuff.Add(thing);
+            return selectionStuff.Count!=0 ? selectionStuff : null;
         }
 
         public void DeleteOne(int id)
         {
-            ChooseOne(id);
-            thingList.Remove(selectionThing[0]);
+            stuffList.Remove(FindOne(id));
         }
 
-        public List<string> ChooseOne(int id)
+        public Tstuff FindOne(int id)
         {
-            foreach (Ttypeofstuff b in thingList)
+            foreach (Tstuff thing in stuffList)
             {
-                if (id == b.Id)
+                if (id == thing.Id)
                 {
-                    DeleteSelection();
-                    selectionThing.Add(b);
-                    return b.Display();
+                    selectionStuff.Clear();
+                    return thing;
                 }
             }
             return null;
         }
 
-        public List<string> ViewOne()
+        public List<Tstuff> ViewAll()
         {
-            if (selectionThing.Count != 0)
+            List<Tstuff> answer = new List<Tstuff>();
+            if (stuffList.Count != 0)
             {
-                if (selectionThing[0].title != "")
-                    return selectionThing[0].Display();
-                else
-                    return null;
-            }
-            return null;
-        }
-
-        public List<Ttypeofstuff> ViewSelection()
-        {
-            List<Ttypeofstuff> listOfAnswers = new List<Ttypeofstuff>();
-            if (selectionThing.Count != 0)
-                foreach (Ttypeofstuff sb in selectionThing)
-                    if (selectionThing[0].title != "")
-                        listOfAnswers.Add(sb);
-            return listOfAnswers;
-
-        }
-
-        public bool ViewAll(List<List<String>> answer)
-        {
-            if (thingList.Count != 0)
-            {
-                foreach (Ttypeofstuff sb in thingList)
+                foreach (Tstuff thing in stuffList)
                 {
-                    answer.Add(sb.Display());
+                    answer.Add(thing);
                 }
-                return true;
+                return answer;
             }
             else
-                return false;
+                return null;
         }
     }
 }
