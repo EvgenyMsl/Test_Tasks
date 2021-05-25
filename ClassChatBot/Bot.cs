@@ -12,14 +12,16 @@ namespace ClassChatBot
         public bool isFinal = false;
         Random randomizer = new Random();
 
+        internal delegate string CommandMessage();
+        internal CommandMessage cMes;
+
         static readonly List<Answer> lJokes = new List<Answer>();
         static readonly List<Answer> lAphorisms = new List<Answer>();
         static readonly List<Answer> lMeetings = new List<Answer>();
         static readonly List<Answer> lAnswers = new List<Answer>();
         static readonly List<Answer> lIniPhrases = new List<Answer>();
         static readonly List<Answer> lErrors = new List<Answer>();
-
-        static readonly List<Question> lCommands = new List<Question>();
+        static readonly Dictionary<Question, CommandMessage> dCommands = new Dictionary<Question, CommandMessage>();
         static readonly List<Question> lQuestions = new List<Question>();
 
 
@@ -36,11 +38,10 @@ namespace ClassChatBot
             string answer_line = new string("");
             lPhrases.Clear();
 
-            var commands = lCommands.Where(i => i.QuestionType == "com");
-            foreach (var command in commands)
-                if (command.Phrase == asking)
+            foreach (var command in dCommands)
+                if (command.Key.Phrase == asking)
                 {
-                    return command.cMes();
+                    return command.Value();
                 }
 
             foreach (Question oneQuestion in lQuestions)
@@ -86,6 +87,8 @@ namespace ClassChatBot
 
         private void GetBase()
         {
+            string type_ans = "";
+
             lQuestions.Add(new Question("..."));
             lQuestions.Add(new Question("хай"));
             lQuestions.Add(new Question("привет"));
@@ -97,16 +100,18 @@ namespace ClassChatBot
             lQuestions.Add(new Question("доброе утро"));
             lQuestions.Add(new Question("доброй ночи"));
 
-            lCommands.Add(new Question("как тебя зовут", () => { return "Меня зовут " + m_BotName; }));//9
-            lCommands.Add(new Question("анекдот", () => { return TakeRandAnswer(lJokes); }));//10
-            lCommands.Add(new Question("который час", () => { return DateTime.Now.ToString().Split(" ").ToArray()[1]; }));//11
-            lCommands.Add(new Question("сколько времени", () => { return DateTime.Now.ToString().Split(" ").ToArray()[1]; }));//12
-            lCommands.Add(new Question("какая сейчас дата", () => { return DateTime.Now.ToString().Split(" ").ToArray()[0]; }));//15
-            lCommands.Add(new Question("брось кубик", () => { return randomizer.Next(0, 6).ToString(); }));//16
-            lCommands.Add(new Question("подбрось кубик", () => { return randomizer.Next(0, 6).ToString(); }));//17
-            lCommands.Add(new Question("брось монетку", () => { return (randomizer.Next(0, 6) == 1) ? "Орёл" : "Режка"; }));//18
-            lCommands.Add(new Question("подбрось монетку", () => { return (randomizer.Next(0, 6) == 1) ? "Орёл" : "Режка"; }));//19
-            lCommands.Add(new Question("пока", () =>
+            type_ans = "com";
+
+            dCommands.Add(new Question("как тебя зовут", type_ans), () => { return "Меня зовут " + m_BotName; });//9
+            dCommands.Add(new Question("анекдот", type_ans), () => { return TakeRandAnswer(lJokes); });//10
+            dCommands.Add(new Question("который час", type_ans), () => { return DateTime.Now.ToString().Split(" ").ToArray()[1]; });//11
+            dCommands.Add(new Question("сколько времени", type_ans), () => { return DateTime.Now.ToString().Split(" ").ToArray()[1]; });//12
+            dCommands.Add(new Question("какая сейчас дата", type_ans), () => { return DateTime.Now.ToString().Split(" ").ToArray()[0]; });//15
+            dCommands.Add(new Question("брось кубик", type_ans), () => { return randomizer.Next(0, 6).ToString(); });//16
+            dCommands.Add(new Question("подбрось кубик", type_ans), () => { return randomizer.Next(0, 6).ToString(); });//17
+            dCommands.Add(new Question("брось монетку", type_ans), () => { return (randomizer.Next(0, 6) == 1) ? "Орёл" : "Режка"; });//18
+            dCommands.Add(new Question("подбрось монетку", type_ans), () => { return (randomizer.Next(0, 6) == 1) ? "Орёл" : "Режка"; });//19
+            dCommands.Add(new Question("пока", type_ans), () =>
             {
                 isFinal = true;
                 if (m_UserName != "")
@@ -114,8 +119,8 @@ namespace ClassChatBot
                 else
                     return "до cвидания";
             }
-               ));
-            lCommands.Add(new Question("до свидания", () =>
+               );
+            dCommands.Add(new Question("до свидания"), () =>
             {
                 isFinal = true;
                 if (m_UserName != "")
@@ -123,11 +128,9 @@ namespace ClassChatBot
                 else
                     return "до cвидания";
             }
-               ));
+               );
 
-
-
-            string type_ans = "ans";
+            type_ans = "ans";
 
             lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Здравствуйте", type_ans));
             lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Хола", type_ans));
