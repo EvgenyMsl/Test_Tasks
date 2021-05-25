@@ -4,75 +4,43 @@ using System.Text;
 
 namespace ClassChatBot
 {
-    class Question
+    
+    sealed class Question
     {
-
-        public static List<Question> questions = new List<Question>();
+        internal delegate string CommandMessage();
+        internal CommandMessage cMes;
+        private static int m_newId = 0;
+        public readonly int ID;
+        private string phrase;
+        private string questionType;
+        public string Phrase { get { return phrase; } }
+        public string QuestionType { get { return questionType; } }
 
         static Question()
         {
-            loadBase(questions);
+            m_newId = 0;
         }
 
-        public Question(string Phrase, string type_of_question)
+        private Question()
         {
-            newId++;
-            this.type_of_question = type_of_question;
-            Id = newId;
-            this.Phrase = Phrase;
+            /*-------------------------------------*/
         }
 
-        static void loadBase(List<Question> questions)
+        public Question(string phrase, string type_of_question = "ask") //ask or com
         {
-            GetQuestionsBase(questions);
+            m_newId++;
+            this.questionType = type_of_question;
+            ID = m_newId;
+            this.phrase = phrase;
         }
 
-        void AddQuestion(List<Question> questions, string text, string type)
+        public Question(string phrase,  CommandMessage c) //ask or com
         {
-            questions.Add(new Question(text, type));
+            m_newId++;
+            questionType = "com";
+            ID = m_newId;
+            this.phrase = phrase;
+            cMes = c;
         }
-
-
-        void DelQuestion(List<Question> questions, string text, string type)
-        {
-            foreach (Question q in questions)
-                if (text == q.Phrase)
-                {
-                    questions.Remove(q);
-                }
-        }
-
-        private static int newId = 0;
-        public readonly int Id;
-        public readonly string Phrase;
-        public readonly string type_of_question;
-
-        private static void GetQuestionsBase(List<Question> questions)
-        {
-            string type_ask = "ask";
-            string type_com = "com";
-
-            questions.Add(new Question("хай", type_ask));//0
-            questions.Add(new Question("привет", type_ask));//1
-            questions.Add(new Question("приветствую", type_ask));//2
-            questions.Add(new Question("здравствуй", type_ask));//3
-            questions.Add(new Question("здравствуйте", type_ask));//4
-            questions.Add(new Question("добрый день", type_ask));//5
-            questions.Add(new Question("добрый вечер", type_ask));//6
-            questions.Add(new Question("доброе утро", type_ask));//7
-            questions.Add(new Question("доброй ночи", type_ask));//8
-
-            questions.Add(new Question("как тебя зовут", type_com));//9
-            questions.Add(new Question("анекдот", type_com));//10
-            questions.Add(new Question("который час", type_com));//11
-            questions.Add(new Question("сколько времени", type_com));//12
-            questions.Add(new Question("пока", type_com));//13
-            questions.Add(new Question("до свидания", type_com));//14
-
-            questions.Add(new Question("...", type_ask));
-        }
-
-
-       
     }
 }

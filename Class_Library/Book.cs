@@ -10,7 +10,7 @@ namespace Class_Library
         public string Genre { set; get; }
         public int YearOfPublishing { set; get; }
 
-        public Book(string title, int quantity, string publishing, string author="Unknown", string genre = "Unknown", int yearofpublishing = 0) : base(title, quantity, publishing)
+        public Book(string title, int quantity, string publishing, string author = "Unknown", string genre = "Unknown", int yearofpublishing = 0) : this() 
         {
             Title = title;
             Quantity = quantity;
@@ -22,7 +22,9 @@ namespace Class_Library
 
         private Book()
         {
-
+            Author = "Undefined";
+            Genre = "Undefined";
+            YearOfPublishing = 0;
         }
 
         

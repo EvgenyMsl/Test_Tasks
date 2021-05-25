@@ -15,19 +15,17 @@ namespace Class_Library
 
         protected bool isCorrect;
 
-        protected Stuff(string title, int quantity, string publishing)
+        protected Stuff()
         {
             m_newID++;
             Id = m_newID;
-            Title = title;
-            Quantity = quantity;
-            Publishing = publishing;
+            Title = "Undefined";
+            Quantity = 0;
+            Publishing = "Undefined";
         }
 
-        private protected Stuff()
-        {
-
-        }
     }
 
 }
+
+
