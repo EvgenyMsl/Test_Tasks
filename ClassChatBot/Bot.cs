@@ -23,6 +23,7 @@ namespace ClassChatBot
         static readonly List<Answer> lErrors = new List<Answer>();
         static readonly Dictionary<Question, CommandMessage> dCommands = new Dictionary<Question, CommandMessage>();
         static readonly List<Question> lQuestions = new List<Question>();
+        List<int> lCrctIDQuestToAns;
 
 
         static readonly List<String> lPhrases = new List<string>();
@@ -132,17 +133,17 @@ namespace ClassChatBot
 
             type_ans = "ans";
 
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Здравствуйте", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Хола", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Ни хао", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Халло", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Шалом", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Буенос диас", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Гутен таг", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Здраво", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 5, 6 }, "Добрый", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 8 }, "Доброй", type_ans));
-            lMeetings.Add(new Answer(new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Аве!", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Здравствуйте", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Хола", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Ни хао", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Халло", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Шалом", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Буенос диас", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Гутен таг", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Здраво", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 5, 6 }, "Добрый", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 8 }, "Доброй", type_ans));
+            lMeetings.Add(new Answer(lCrctIDQuestToAns=new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, "Аве!", type_ans));
             
             type_ans = "jok";
             
